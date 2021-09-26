@@ -8,7 +8,8 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { Main } from "../components/Main";
 
-const desc = "Zilmorphs is a collection of 8,000 machine learning generated creatures on the Zilliqa blockchain. Zilmorphs were created to celebrate the creation of the Zilliqa bridge.";
+const desc =
+    "Zilmorphs is a collection of 8,000 machine learning generated creatures on the Zilliqa blockchain. Zilmorphs were created to celebrate the creation of the Zilliqa bridge.";
 const title = "zilmorphs";
 const twitterUrl = "https://zilmorphs.com/";
 
@@ -42,12 +43,14 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             <Grommet
                 theme={deepMerge(grommetTheme, {
                     global: {
-                        colors: { brand: "#ffffff" , text: "white"},
+                        colors: { brand: "black", text: "black" },
                     },
                 })}
                 full={true}
             >
-                <Component {...pageProps} />
+                <Main>
+                    <Component {...pageProps} />
+                </Main>
             </Grommet>
         </>
     );

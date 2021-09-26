@@ -120,11 +120,11 @@ function Images({ top, mouse, scrollMax }) {
             key={index}
             url={url}
             scale={scale}
-            opacity={top.to([0, 500], [0, 1])}
+            opacity={top.to([0, 500], [0.5, 1])}
             position={to([top, mouse], (top, mouse) => [
                 (-mouse[0] * factor) / 50000 + x,
                 (mouse[1] * factor) / 50000 +
-                    y * 1.15 +
+                    y * 1 +
                     ((top * factor) / scrollMax) * 2,
                 z + top / 2000,
             ])}
@@ -146,14 +146,14 @@ function Scene({
     return (
         <>
             <a.spotLight
-                intensity={1}
+                intensity={1.3}
                 color="white"
                 position={mouse.to((x, y) => [x / 100, -y / 100, 6.5])}
             />
             <Background
                 color={top.to(
                     [0, scrollMax * 0.25, scrollMax * 0.8, scrollMax],
-                    ["#db34eb", "#29CCC4", "#29CCC4", "#036F7D"]
+                    ["#ffffff"]
                 )}
             />
             <Stars position={top.to((top) => [0, -1 + top / 20, 0])} />
@@ -218,7 +218,7 @@ function Text({
     children,
     position,
     opacity,
-    color = "white",
+    color = "black",
     fontSize = 410,
     bold = "bold",
 }) {
@@ -285,7 +285,6 @@ export default observer(() => {
                 align="center"
             >
                 <Button
-                    color={"white"}
                     label={"Go to dapp"}
                     onClick={() => router.push("/dapp")}
                 />
