@@ -8,19 +8,11 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { Main } from "../components/Main";
 
-const desc = "KAT The first Zilliqa bonding curve token";
-const title = "KAT";
-const twitterUrl = "https://kat-indol.vercel.app/";
+const desc = "Zilmorphs is a collection of 8,000 machine learning generated creatures on the Zilliqa blockchain. Zilmorphs were created to celebrate the creation of the Zilliqa bridge.";
+const title = "zilmorphs";
+const twitterUrl = "https://zilmorphs.com/";
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-    useEffect(() => {
-        const u1 = monitor.subscribe();
-        const u2 = statsDisp.subscribe();
-        return () => {
-            u2();
-            u1();
-        };
-    }, []);
     return (
         <>
             <Head>
@@ -50,12 +42,8 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             <Grommet
                 theme={deepMerge(grommetTheme, {
                     global: {
-                        font: {
-                            family: "Courier",
-                        },
-                        colors: { text: "#000000", border: "#000000" },
+                        colors: { brand: "#ffffff" , text: "white"},
                     },
-                    heading: { color: "#000000" },
                 })}
                 full={true}
             >
