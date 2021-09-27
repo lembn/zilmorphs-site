@@ -147,7 +147,7 @@ export const Main = ({ children }: { children: JSX.Element }) => {
                 </Box>
                 {children}
             </Box>
-            <Canvas
+            {/* <Canvas
                 style={{
                     position: "absolute",
                     top: "0px",
@@ -155,7 +155,7 @@ export const Main = ({ children }: { children: JSX.Element }) => {
                 }}
             >
                 <Scene top={top} mouse={mouse} />
-            </Canvas>
+            </Canvas> */}
         </Box>
     );
 };
