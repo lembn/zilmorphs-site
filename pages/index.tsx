@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { observer } from "mobx-react-lite";
 import { Box, Button } from "grommet";
 import { useRouter } from "next/router";
