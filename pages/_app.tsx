@@ -1,11 +1,7 @@
-import { monitor } from "../util/ContractMonitor";
-import { statsDisp } from "../state/StatsDisp";
-import { buyer } from "../state/Buyer";
-import { Grommet, grommet as grommetTheme, Box } from "grommet";
+import { Grommet, grommet as grommetTheme } from "grommet";
 import { deepMerge } from "grommet/utils";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { useEffect } from "react";
 import { Main } from "../components/Main";
 
 const desc =
@@ -39,6 +35,31 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                 <meta name="twitter:url" content={twitterUrl} />
                 <meta name="twitter:title" content={title} />
                 <meta name="twitter:description" content={desc} />
+                <link
+                    rel="apple-touch-icon"
+                    sizes="180x180"
+                    href="/apple-touch-icon.png"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="32x32"
+                    href="/favicon-32x32.png"
+                />
+                <link
+                    rel="icon"
+                    type="image/png"
+                    sizes="16x16"
+                    href="/favicon-16x16.png"
+                />
+                <link rel="manifest" href="/site.webmanifest" />
+                <link
+                    rel="mask-icon"
+                    href="/safari-pinned-tab.svg"
+                    color="#5bbad5"
+                />
+                <meta name="msapplication-TileColor" content="#da532c" />
+                <meta name="theme-color" content="#ffffff"></meta>
             </Head>
             <Grommet
                 theme={deepMerge(grommetTheme, {
