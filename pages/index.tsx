@@ -220,7 +220,7 @@ function Text({
     position,
     opacity,
     color = "black",
-    fontSize = 410,
+    fontSize = 200,
     bold = "bold",
 }) {
     const {
@@ -287,6 +287,8 @@ export default observer(() => {
             >
                 <Button
                     label={"Go to dapp"}
+                    plain
+                    style={{ fontSize: "1.8em", fontWeight: "bold" }}
                     onClick={() => router.push("/dapp")}
                 />
             </Box>
