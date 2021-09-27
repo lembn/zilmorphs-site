@@ -127,18 +127,21 @@ export const Main = ({ children }: { children: JSX.Element }) => {
                 <Box pad="large" align="start" direction="row" gap="large">
                     <Button
                         label={"zilmorphs"}
+                        plain
+                        style={{ fontSize: "2em", fontWeight: "bold" }}
                         onClick={() => router.push("/dapp")}
                     />
-                    <Button
-                        label={"view"}
-                        onClick={() => router.push("/dapp/view")}
-                    />
+
                     <Button
                         label={"get"}
+                        plain
+                        style={{ fontSize: "2em", fontWeight: "bold" }}
                         onClick={() => router.push("/dapp/get")}
                     />
                     <Button
                         label={"my morphs"}
+                        plain
+                        style={{ fontSize: "2em", fontWeight: "bold" }}
                         onClick={() => router.push("/dapp/my")}
                     />
                 </Box>
