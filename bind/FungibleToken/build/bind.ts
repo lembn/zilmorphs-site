@@ -1,3 +1,4 @@
+//@ts-nocheck
 /** @format */
 
 import { BN, Long } from "@zilliqa-js/util";
