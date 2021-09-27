@@ -128,20 +128,20 @@ export const Main = ({ children }: { children: JSX.Element }) => {
                     <Button
                         label={"zilmorphs"}
                         plain
-                        style={{ fontSize: "2em", fontWeight: "bold" }}
+                        style={{ fontSize: "1.8em", fontWeight: "bold" }}
                         onClick={() => router.push("/dapp")}
                     />
 
                     <Button
                         label={"get"}
                         plain
-                        style={{ fontSize: "2em", fontWeight: "bold" }}
+                        style={{ fontSize: "1.8em", fontWeight: "bold" }}
                         onClick={() => router.push("/dapp/get")}
                     />
                     <Button
                         label={"my morphs"}
                         plain
-                        style={{ fontSize: "2em", fontWeight: "bold" }}
+                        style={{ fontSize: "1.8em", fontWeight: "bold" }}
                         onClick={() => router.push("/dapp/my")}
                     />
                 </Box>
