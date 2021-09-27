@@ -1,7 +1,7 @@
 import { normaliseAddress } from "@zilliqa-js/crypto";
 import { ZilliqaWs } from "./ZilliqaWs";
 import { v4 } from "uuid";
-import { getImplementation, getWS } from "../util/config";
+import { getWS } from "../util/config";
 
 export class ContractMonitor {
     a: string;

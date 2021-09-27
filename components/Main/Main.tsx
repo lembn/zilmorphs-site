@@ -11,6 +11,7 @@ import {
 import { useCallback, useMemo, useRef, FC, useEffect, useState } from "react";
 import { useThree, Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { walletManager } from "../../state/WalletManager";
 
 function degToRad(deg: number) {
     return (deg * Math.PI) / 180;
@@ -114,7 +115,7 @@ function Scene({
     );
 }
 
-export const Main = ({ children }: { children: JSX.Element }) => {
+export const Main = observer(({ children }: { children: JSX.Element }) => {
     const router = useRouter();
     const [{ top, mouse }, set] = useSpring(() => ({ top: 0, mouse: [0, 0] }));
 
@@ -124,25 +125,44 @@ export const Main = ({ children }: { children: JSX.Element }) => {
                 fill
                 style={{ position: "absolute", bottom: "0", zIndex: 100 }}
             >
-                <Box pad="large" align="start" direction="row" gap="large">
+                <Box pad="large" justify="between" direction="row" gap="large">
+                    <Box direction="row" gap="large">
+                        <Button
+                            label={"zilmorphs"}
+                            plain
+                            style={{ fontSize: "1.8em", fontWeight: "bold" }}
+                            onClick={() => router.push("/dapp")}
+                        />
+                        <Button
+                            label={"get"}
+                            plain
+                            style={{ fontSize: "1.8em", fontWeight: "bold" }}
+                            onClick={() => router.push("/dapp/get")}
+                        />
+                        <Button
+                            label={"my morphs"}
+                            plain
+                            style={{ fontSize: "1.8em", fontWeight: "bold" }}
+                            onClick={() => router.push("/dapp/my")}
+                        />
+                    </Box>
                     <Button
-                        label={"zilmorphs"}
+                        label={
+                            walletManager.connected ? "connected" : "connect"
+                        }
                         plain
-                        style={{ fontSize: "1.8em", fontWeight: "bold" }}
-                        onClick={() => router.push("/dapp")}
-                    />
-
-                    <Button
-                        label={"get"}
-                        plain
-                        style={{ fontSize: "1.8em", fontWeight: "bold" }}
-                        onClick={() => router.push("/dapp/get")}
-                    />
-                    <Button
-                        label={"my morphs"}
-                        plain
-                        style={{ fontSize: "1.8em", fontWeight: "bold" }}
-                        onClick={() => router.push("/dapp/my")}
+                        style={{
+                            fontSize: "1.8em",
+                            fontWeight: "bold",
+                            color: walletManager.connected ? "green" : "black",
+                        }}
+                        onClick={async () => {
+                            try {
+                                await walletManager.aquireWallet();
+                            } catch (e) {
+                                alert(e);
+                            }
+                        }}
                     />
                 </Box>
                 {children}
@@ -158,4 +178,4 @@ export const Main = ({ children }: { children: JSX.Element }) => {
             </Canvas> */}
         </Box>
     );
-};
+});

@@ -2,7 +2,9 @@ import { Grommet, grommet as grommetTheme } from "grommet";
 import { deepMerge } from "grommet/utils";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { useEffect } from "react";
 import { Main } from "../components/Main";
+import { walletManager } from "../state/WalletManager";
 
 const desc =
     "Zilmorphs is a collection of 8,000 machine learning generated creatures on the Zilliqa blockchain. Zilmorphs were created to celebrate the creation of the Zilliqa bridge.";
@@ -10,6 +12,10 @@ const title = "zilmorphs";
 const twitterUrl = "https://zilmorphs.com/";
 
 export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+    useEffect(() => {
+        walletManager.updatePrices();
+        walletManager.silentConnect();
+    }, []);
     return (
         <>
             <Head>

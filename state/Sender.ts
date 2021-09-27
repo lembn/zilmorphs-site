@@ -2,7 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { BNToPrecision12, precision12ToBN } from "../util/shared";
 import { BN, Long, validation } from "@zilliqa-js/util";
 import * as token from "../bind";
-import { getImplementation } from "../util/config";
+
 import { toBech32Address, normaliseAddress } from "@zilliqa-js/crypto";
 
 function isAddress(s: string) {

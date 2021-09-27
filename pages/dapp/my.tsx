@@ -5,6 +5,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { ApiMorph } from "../../data/interfaces";
 import { useEffect } from "react";
 import { Card } from "../../components/Card";
+import { walletManager } from "../../state/WalletManager";
 
 class DispMultiple {
     morphs: ApiMorph[] = [];
@@ -33,8 +34,8 @@ const multiple = new DispMultiple();
 
 export default observer(() => {
     useEffect(() => {
-        multiple.get("234", "6543", "654", "123", "3453");
-    }, []);
+        multiple.get(...walletManager.owned);
+    }, [walletManager.owned]);
 
     return (
         <Box flex="grow" justify="center" gap="medium">
@@ -48,7 +49,7 @@ export default observer(() => {
                 wrap
             >
                 {multiple.morphs.length == 0 ? (
-                    <Heading>{`you have no morhps`}</Heading>
+                    <Heading level="2">{`you have no morphs :(`}</Heading>
                 ) : (
                     multiple.morphs.map((m) => <Card morph={m} key={m.num} />)
                 )}

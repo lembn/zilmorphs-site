@@ -11,7 +11,7 @@ import {
 import { BN, Long } from "@zilliqa-js/util";
 import { statsDisp } from "./StatsDisp";
 import * as token from "../bind";
-import { getImplementation } from "../util/config";
+
 import { walletManager } from "../state/WalletManager";
 import { Transaction } from "@zilliqa-js/account";
 

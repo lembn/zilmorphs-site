@@ -2,6 +2,7 @@ import { observer } from "mobx-react-lite";
 import { Box, Paragraph, Heading, Button, ResponsiveContext } from "grommet";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import { walletManager } from "../../state/WalletManager";
 
 export default observer(() => {
     const router = useRouter();
@@ -50,6 +51,12 @@ export default observer(() => {
                 align="center"
                 width={{ max: "550px" }}
             >
+                <Heading
+                    level="2"
+                    color={walletManager.saleOpen ? "status-ok" : "status-error"}
+                >
+                    {walletManager.saleOpen ? "Sale open" : "Sale closed"}
+                </Heading>
                 <Box direction="row" gap="medium">
                     <Button
                         label={"get with zETH"}
@@ -64,7 +71,7 @@ export default observer(() => {
                         size="large"
                         style={{ fontWeight: 600, fontSize: "0.8em" }}
                     >
-                        {`Current price: ${0} zETH`}
+                        {`Current price: ${walletManager.zethP} zETH`}
                     </Paragraph>
                 </Box>
                 <Box direction="row" gap="medium">
@@ -81,7 +88,7 @@ export default observer(() => {
                         size="large"
                         style={{ fontWeight: 600, fontSize: "0.8em" }}
                     >
-                        {`Current price: ${0} zWBTC`}
+                        {`Current price: ${walletManager.zwbtcP} zWBTC`}
                     </Paragraph>
                 </Box>
                 <Box direction="row" gap="medium">
@@ -98,7 +105,7 @@ export default observer(() => {
                         size="large"
                         style={{ fontWeight: 600, fontSize: "0.8em" }}
                     >
-                        {`Current price: ${0} zUSDT`}
+                        {`Current price: ${walletManager.zusdtP} zUSDT`}
                     </Paragraph>
                 </Box>
             </Box>
