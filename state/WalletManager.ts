@@ -36,6 +36,36 @@ class WalletManager {
     owned: string[] = [];
     saleOpen: boolean = true;
 
+    typeToAddress(t: "zETH" | "zWBTC" | "zUSDT") {
+        if (t == "zETH") {
+            return { token: tokens[0], seller: sellers[0], decimals: 18 };
+        }
+        if (t == "zWBTC") {
+            return { token: tokens[1], seller: sellers[1], decimals: 8 };
+        }
+        return { token: tokens[2], seller: sellers[2], decimals: 6 };
+    }
+
+    typeToBalance(t: "zETH" | "zWBTC" | "zUSDT") {
+        if (t == "zETH") {
+            return this.zethB;
+        }
+        if (t == "zUSDT") {
+            return this.zusdtB;
+        }
+        return this.zwbtcB;
+    }
+
+    typeToPrice(t: "zETH" | "zWBTC" | "zUSDT") {
+        if (t == "zETH") {
+            return this.zethP;
+        }
+        if (t == "zUSDT") {
+            return this.zusdtP;
+        }
+        return this.zwbtcP;
+    }
+
     get zethB() {
         return BNtoDisp(this.zeth, 18);
     }
@@ -152,7 +182,7 @@ class WalletManager {
             }
         }
     }
-    async aquireWallet() {
+    async aquireWallet(silent?: boolean) {
         if (this.thereIsZilPay()) {
             const connected = await this.getZilPay().wallet.connect();
             runInAction(() => {
@@ -167,12 +197,14 @@ class WalletManager {
                 throw new Error("zilpay not connected");
             }
         }
-        window.open("https://zilpay.io/");
-        throw new Error("No zilpay");
+        if (!silent) {
+            window.open("https://zilpay.io/");
+            throw new Error("No zilpay");
+        }
     }
     async silentConnect() {
         try {
-            await this.aquireWallet();
+            await this.aquireWallet(true);
         } catch (e) {}
     }
     // subscribe() {
@@ -181,7 +213,7 @@ class WalletManager {
     // }
 }
 
-var tokenSdk = FungibleToken({
+export var tokenSdk = FungibleToken({
     getNetworkName,
     getVersion,
     getZil: async (signer) => {
