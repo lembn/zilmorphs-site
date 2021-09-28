@@ -35,7 +35,6 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                         }
                         plain
                         style={{
-                            fontSize: "1em",
                             fontWeight: "bold",
                             color: walletManager.connected ? "green" : "black",
                         }}
@@ -73,8 +72,8 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                         responsive={false}
                     >
                         <Box
-                            height={notifi.anchor ? "130px" : "90px"}
-                            width={"30vw"}
+                            height={notifi.anchor ? "100px" : "90px"}
+                            width={"350px"}
                             pad="small"
                             flex="grow"
                         >
@@ -85,11 +84,15 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                                 fill
                                 align="center"
                                 justify="center"
+                                pad="small"
                             >
                                 <Para color={notifi.color}>{notifi.text}</Para>
                                 {notifi.anchor != "" && (
                                     <Anchor
-                                        style={{ color: "status-ok" }}
+                                        style={{
+                                            color: "status-ok",
+                                            fontSize: "0.8em",
+                                        }}
                                         label={notifi.anchorLabel}
                                         href={notifi.anchor}
                                     />

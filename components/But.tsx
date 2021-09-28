@@ -5,7 +5,8 @@ export const But = ({ label, onClick }) => {
         <Button
             label={label}
             plain
-            style={{ fontSize: "1.1em", fontWeight: "bold" }}
+            style={{ fontWeight: "bold" }}
+            size="large"
             onClick={() => onClick()}
         />
     );

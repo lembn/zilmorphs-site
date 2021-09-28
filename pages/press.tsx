@@ -11,7 +11,7 @@ const multiple = new DispMultiple();
 
 export default observer(function Press() {
     useEffect(() => {
-        multiple.get("2329", "5345", "3243", "7654");
+        multiple.get("1436", "5345", "3243", "7654");
     }, []);
 
     return (
