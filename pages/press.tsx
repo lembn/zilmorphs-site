@@ -46,6 +46,11 @@ export default observer(function Press() {
                     have been created by machines! Machine learning has created
                     zilmorphs!
                 </Para>
+                <Para>
+                    The portal is unstable! Zilmorphs are here for a limited
+                    time! The sale will end at a random time and the remaining
+                    zimorphs will be trapped in the other worlds forever!
+                </Para>
                 <Heading level="3">How to buy</Heading>
                 <Para>
                     The zilmorph sale will commence shortly after sufficient
@@ -63,6 +68,7 @@ export default observer(function Press() {
                     starting price of ~1$ that increases by 1$ in each
                     respective asset. There are 8000 zilmorphs up for grabs!
                 </Para>
+                <Para>The sale once started can end at any time!</Para>
                 <Heading level="3">Why to buy</Heading>
                 <Para>
                     Owning a Zilmorph makes you eligible for zilmorph airdrops,

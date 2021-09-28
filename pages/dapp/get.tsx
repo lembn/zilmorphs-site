@@ -8,7 +8,7 @@ import {
     Button,
 } from "grommet";
 import { useRouter } from "next/router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { walletManager, tokenSdk } from "../../state/WalletManager";
 import { makeAutoObservable, runInAction } from "mobx";
 import Big from "big.js";
@@ -78,6 +78,10 @@ const buyer = new Buyer();
 export default observer(() => {
     const router = useRouter();
     const context = useContext(ResponsiveContext);
+
+    useEffect(() => {
+        walletManager.updatePrices();
+    }, []);
 
     return (
         <>

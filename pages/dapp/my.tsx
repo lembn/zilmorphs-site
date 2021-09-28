@@ -38,6 +38,10 @@ export default observer(() => {
         multiple.get(...walletManager.owned);
     }, [walletManager.owned]);
 
+    useEffect(() => {
+        walletManager.update();
+    });
+
     return (
         <>
             <Box flex="grow" justify="center" gap="medium">
