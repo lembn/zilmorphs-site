@@ -31,7 +31,7 @@ export const Card = observer(({ morph }: { morph: ApiMorph }) => {
                     <Text
                         size="xsmall"
                         style={{ fontWeight: "bold" }}
-                    >{`Inteligence: ${morph.data.stats.int}`}</Text>
+                    >{`Intelligence: ${morph.data.stats.int}`}</Text>
                 </Box>
                 <Box fill>
                     <Heading level="3">Special</Heading>
