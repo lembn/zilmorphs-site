@@ -37,9 +37,9 @@ export default observer(function Press() {
                     #zETH, #zUSDT.
                 </Para>
                 <Para>
-                    Zilmorphs have bridged into our world. One can aquire them
-                    only by bridging with the other worlds themselves #zWBTC,
-                    #zETH, #zUSDT.
+                    Zilmorphs come from an alternate reality, that is much more
+                    advanced then ours, they managed to entirely digitalize
+                    themselves and live on the #Zilliqa blockchain.
                 </Para>
                 <Para>
                     Zilmorphs are so advanced in fact that in their world they
@@ -48,9 +48,9 @@ export default observer(function Press() {
                 </Para>
                 <Heading level="3">How to buy</Heading>
                 <Para>
-                    Zilmorphs are so advanced in fact that in their world they
-                    have been created by machines! Machine learning has created
-                    zilmorphs!
+                    The zilmorph sale will commence shortly after sufficient
+                    awareness is gained, so that one cannot frontrun others and
+                    grab all of the morphs at the begining!
                 </Para>
                 <Para>
                     You can only buy morphs with the Zilliqa bridge assets
