@@ -102,7 +102,6 @@ export default observer(() => {
                 align="center"
                 pad="small"
             >
-              
                 {buyer.show && (
                     <Layer
                         onEsc={() => buyer.hide()}
@@ -234,7 +233,6 @@ export default observer(() => {
                     </Box>
                 </Box>
             </Box>
-            <Footer />
         </>
     );
 });

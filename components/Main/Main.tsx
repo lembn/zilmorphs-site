@@ -5,14 +5,21 @@ import { walletManager } from "../../state/WalletManager";
 import { But } from "../But";
 import { notifi } from "../../state/Notification";
 import { Para } from "../Para";
+import { Footer } from "./Footer";
 
 export const Main = observer(({ children }: { children: JSX.Element }) => {
     const router = useRouter();
 
     return (
         <Box fill>
-            <Box fill style={{ position: "absolute", bottom: "0", zIndex: 0 }}>
-                <Box pad="large" justify="between" direction="row" gap="large">
+            <Box flex="grow" height={{ max: "100px" }}>
+                <Box
+                    pad="medium"
+                    justify="around"
+                    direction="row"
+                    gap="large"
+                    flex="grow"
+                >
                     <Box direction="row" gap="large">
                         <But
                             label={"zilmorphs"}
@@ -101,8 +108,9 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                         </Box>
                     </Layer>
                 )}
-                {children}
             </Box>
+            {children}
+            <Footer />
             {/* <Canvas
                 style={{
                     position: "absolute",

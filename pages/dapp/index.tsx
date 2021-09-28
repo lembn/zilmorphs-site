@@ -92,7 +92,6 @@ export default observer(() => {
 
                 <Card morph={disp.morph} />
             </Box>
-            <Footer />
         </>
     );
 });
