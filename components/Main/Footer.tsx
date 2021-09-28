@@ -13,7 +13,7 @@ export const Footer = () => {
             flex="grow"
         >
             <Anchor onClick={() => router.push("/press")} label="press" />
-            <Anchor label="telegram" href={"https://t.co/VJIdO5vV3o?amp=1"} />
+            <Anchor label="telegram" href={"https://t.me/zilmorphs"} />
             <Anchor
                 reverse
                 icon={<Twitter />}
