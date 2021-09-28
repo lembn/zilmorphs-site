@@ -382,24 +382,26 @@ async function getMinGasPrice(zil: Zilliqa) {
 
 export const FungibleToken = (resolvers: SDKResolvers) => {
   const defaultTxLog = (t: Transaction, msg: string) => {
-    const id = t.id;
+    console.log(t)
+    //@ts-ignore
+    const id = t.ID;
     const url = `https://viewblock.io/zilliqa/tx/0x${id}?network=${getNetworkName()}`;
     console.log(MAGENTA, msg);
-    const receipt = t.getReceipt();
-    if (receipt) {
-      if (receipt.success) {
-        console.log(GREEN, "Success.");
-        console.log(GREEN, JSON.stringify(receipt.event_logs, null, 2))
-      } else {
-        console.log(RED, "Failed.");
-        // console.log(RED, JSON.stringify(receipt, null, 2))
-        if (receipt.errors) {
-          Object.entries(receipt.exceptions).map(([k, v]) => {
-            console.log(RED, v);
-          });
-        }
-      }
-    }
+    // const receipt = t.getReceipt();
+    // if (receipt) {
+    //   if (receipt.success) {
+    //     console.log(GREEN, "Success.");
+    //     console.log(GREEN, JSON.stringify(receipt.event_logs, null, 2))
+    //   } else {
+    //     console.log(RED, "Failed.");
+    //     // console.log(RED, JSON.stringify(receipt, null, 2))
+    //     if (receipt.errors) {
+    //       Object.entries(receipt.exceptions).map(([k, v]) => {
+    //         console.log(RED, v);
+    //       });
+    //     }
+    //   }
+    // }
     console.log(CYAN, url);
   };
   const { getZil, getVersion, getNetworkName } = resolvers;

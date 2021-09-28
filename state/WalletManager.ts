@@ -114,15 +114,27 @@ class WalletManager {
                 query: {
                     nft_price: "*" as "*",
                 },
-            }))
+            })),
+            {
+                contractAddress: addressbook.BTC_SELLER,
+                includeInit: "false",
+                //@ts-expect-error
+                query: { sale_active: "*" },
+            }
         );
         console.log(states);
         //@ts-expect-error
-        const prices = states.map((s) => new BN(s.nft_price));
+        const prices = states.splice(0, 3).map((s) => new BN(s.nft_price));
+        // the btc seller sale active
+        const btcseller = states.shift();
+        console.log(btcseller);
+        //@ts-expect-error
+        const saleOpen = btcseller.sale_active.constructor != "False";
         runInAction(() => {
             this.zethPrice = prices[0];
             this.zwbtcPrice = prices[1];
             this.zusdtPrice = prices[2];
+            this.saleOpen = saleOpen;
         });
     }
     async update() {
@@ -145,11 +157,6 @@ class WalletManager {
                         includeInit: "false",
                         //@ts-expect-error
                         query: { token_owners: "*" },
-                    },
-                    {
-                        contractAddress: addressbook.BTC_SELLER,
-                        includeInit: "false",
-                        query: { sale_active: "*" },
                     }
                 );
                 const stat = states.splice(0, 3) as unknown as {
@@ -167,17 +174,11 @@ class WalletManager {
                     .filter(([id, address]) => ByStr20.areEqual(address, addr))
                     .map(([id, address]) => id);
 
-                // the btc seller sale active
-                const btcseller = states.shift();
-                console.log(btcseller);
-                //@ts-expect-error
-                const saleOpen = btcseller.sale_active.constructor != "False";
                 runInAction(() => {
                     this.zeth = processed[0];
                     this.zwbtc = processed[1];
                     this.zusdt = processed[2];
                     this.owned = token_ids;
-                    this.saleOpen = saleOpen;
                 });
             }
         }
@@ -198,7 +199,7 @@ class WalletManager {
             }
         }
         if (!silent) {
-            window.open("https://zilpay.io/");
+            // window.open("https://zilpay.io/");
             throw new Error("No zilpay");
         }
     }

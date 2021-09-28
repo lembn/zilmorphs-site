@@ -1,10 +1,12 @@
-import { Grommet, grommet as grommetTheme } from "grommet";
+import { Grommet, grommet as grommetTheme, Layer, Box } from "grommet";
 import { deepMerge } from "grommet/utils";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { useEffect } from "react";
 import { Main } from "../components/Main";
 import { walletManager } from "../state/WalletManager";
+import { notifi } from "../state/Notification";
+import { Para } from "../components/Para";
 
 const desc =
     "Zilmorphs is a collection of 8,000 machine learning generated creatures on the Zilliqa blockchain. Zilmorphs were created to celebrate the creation of the Zilliqa bridge.";
@@ -75,6 +77,7 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                 })}
                 full={true}
             >
+      
                 <Main>
                     <Component {...pageProps} />
                 </Main>

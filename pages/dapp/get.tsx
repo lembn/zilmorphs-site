@@ -6,6 +6,7 @@ import {
     Layer,
     TextInput,
     Button,
+    Anchor,
 } from "grommet";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
@@ -17,6 +18,7 @@ import { Long } from "@zilliqa-js/zilliqa";
 import { Para } from "../../components/Para";
 import { But } from "../../components/But";
 import { Footer } from "../../components/Main/Footer";
+import { notifi } from "../../state/Notification";
 
 class Buyer {
     show: boolean = false;
@@ -60,12 +62,20 @@ class Buyer {
                     .mul(new Big(10).pow(data.decimals))
                     .toFixed(0)
             );
-            await tokenSdk
+            const result = await tokenSdk
                 .calls(data.token)(Long.fromString("40000"))
                 .Transfer(data.seller, amt)
                 .send();
+            result.tx;
+            notifi.show(
+                "Transaction sent!",
+                "black",
+                //@ts-ignore
+                `https://viewblock.io/zilliqa/tx/0x${result.tx.ID}?network=mainnet`,
+                "See on viewblock"
+            );
         } catch (e) {
-            alert(e);
+            notifi.show(e.message ? e.message : JSON.stringify(e), "red");
         }
         runInAction(() => {
             this.sending = false;
@@ -92,6 +102,7 @@ export default observer(() => {
                 align="center"
                 pad="small"
             >
+              
                 {buyer.show && (
                     <Layer
                         onEsc={() => buyer.hide()}

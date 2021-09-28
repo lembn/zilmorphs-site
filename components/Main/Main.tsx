@@ -1,21 +1,13 @@
 import { observer } from "mobx-react-lite";
-import { Box, Button, Text } from "grommet";
+import { Box, Button, Layer, Anchor } from "grommet";
 import { useRouter } from "next/router";
-import {
-    useSpring,
-    a,
-    AnimatedComponent,
-    SpringValue,
-    to,
-} from "@react-spring/three";
-import { useCallback, useMemo, useRef, FC, useEffect, useState } from "react";
-import { useThree, Canvas, useFrame } from "@react-three/fiber";
 import { walletManager } from "../../state/WalletManager";
 import { But } from "../But";
+import { notifi } from "../../state/Notification";
+import { Para } from "../Para";
 
 export const Main = observer(({ children }: { children: JSX.Element }) => {
     const router = useRouter();
-    const [{ top, mouse }, set] = useSpring(() => ({ top: 0, mouse: [0, 0] }));
 
     return (
         <Box fill>
@@ -37,7 +29,9 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                     </Box>
                     <Button
                         label={
-                            walletManager.connected ? "connected" : "connect"
+                            walletManager.connected
+                                ? "connected"
+                                : "connect zilpay"
                         }
                         plain
                         style={{
@@ -49,11 +43,61 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                             try {
                                 await walletManager.aquireWallet();
                             } catch (e) {
-                                alert(e);
+                                if (e.message == "No zilpay") {
+                                    notifi.show(
+                                        e.message
+                                            ? e.message
+                                            : JSON.stringify(e),
+                                        "red",
+                                        "https://zilpay.io/",
+                                        "Get zilpay here"
+                                    );
+                                } else {
+                                    notifi.show(
+                                        e.message
+                                            ? e.message
+                                            : JSON.stringify(e),
+                                        "red"
+                                    );
+                                }
                             }
                         }}
                     />
                 </Box>
+                {notifi.visible && (
+                    <Layer
+                        plain
+                        position="top"
+                        onClickOutside={() => notifi.setVisible(false)}
+                        onEsc={() => notifi.setVisible(false)}
+                        responsive={false}
+                    >
+                        <Box
+                            height={notifi.anchor ? "130px" : "90px"}
+                            width={"30vw"}
+                            pad="small"
+                            flex="grow"
+                        >
+                            <Box
+                                elevation="large"
+                                round="small"
+                                background="white"
+                                fill
+                                align="center"
+                                justify="center"
+                            >
+                                <Para color={notifi.color}>{notifi.text}</Para>
+                                {notifi.anchor != "" && (
+                                    <Anchor
+                                        style={{ color: "status-ok" }}
+                                        label={notifi.anchorLabel}
+                                        href={notifi.anchor}
+                                    />
+                                )}
+                            </Box>
+                        </Box>
+                    </Layer>
+                )}
                 {children}
             </Box>
             {/* <Canvas
