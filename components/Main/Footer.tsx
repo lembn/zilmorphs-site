@@ -1,18 +1,17 @@
 import { Box, Anchor } from "grommet";
-import { Github, Chat } from "grommet-icons";
+import { Github, Twitter } from "grommet-icons";
 import { useRouter } from "next/router";
 
 export const Footer = () => {
     const router = useRouter();
     return (
         <Box justify="center" direction="row" align="center" gap="large">
-            <Anchor onClick={() => router.push("/about")} label="about" />
-            <Anchor label="telegram" href={"https://github.com/MszBednarski"} />
+            <Anchor onClick={() => router.push("/press")} label="press" />
+            <Anchor label="telegram" href={"https://t.co/VJIdO5vV3o?amp=1"} />
             <Anchor
                 reverse
-                icon={<Github />}
-                href={"https://github.com/MszBednarski"}
-                label="made with love"
+                icon={<Twitter />}
+                href={"https://twitter.com/zilmorphs"}
             />
         </Box>
     );

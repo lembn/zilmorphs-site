@@ -1,10 +1,13 @@
 import { observer } from "mobx-react-lite";
-import { Box, Paragraph, Heading, Button, ResponsiveContext } from "grommet";
+import { Box, Heading, Button, ResponsiveContext } from "grommet";
 import { useRouter } from "next/router";
 import { ApiMorph } from "../../data/interfaces";
 import { makeAutoObservable, runInAction } from "mobx";
 import { Card } from "../../components/Card";
 import { useEffect, useContext } from "react";
+import { Para } from "../../components/Para";
+import { But } from "../../components/But";
+import { Footer } from "../../components/Main/Footer";
 
 class RandomDisp {
     morph: ApiMorph = {
@@ -59,45 +62,37 @@ export default observer(() => {
     }, []);
 
     return (
-        <Box
-            direction={context == "small" ? "column" : "row"}
-            flex="grow"
-            justify="center"
-            pad="small"
-            align="center"
-            gap="large"
-        >
-            <Box align="center" width={{ max: "350px" }} flex="grow">
-                <Heading>Zilmorphs</Heading>
-                <Paragraph
-                    size="large"
-                    style={{ fontWeight: 600, fontSize: "1em" }}
-                >
-                    Zilmorphs is a collection of 8,000 machine learning
-                    generated creatures on the Zilliqa blockchain.
-                </Paragraph>
-                <Paragraph
-                    size="large"
-                    style={{ fontWeight: 600, fontSize: "1em" }}
-                >
-                    Zilmorphs were created to celebrate the creation of the
-                    Zilliqa bridge and can only be bought with Zilliqa bridge
-                    assets.
-                </Paragraph>
-                <Box align="center" flex="grow">
-                    <Button
-                        label={"Random morph"}
-                        plain
-                        style={{
-                            fontSize: "1.5em",
-                            fontWeight: "bold",
-                        }}
-                        onClick={() => disp.random()}
-                    />
+        <>
+            <Box
+                direction={context == "small" ? "column" : "row"}
+                flex="grow"
+                justify="center"
+                pad="small"
+                align="center"
+                gap="large"
+            >
+                <Box align="center" width={{ max: "350px" }} flex="grow">
+                    <Heading level="2">Zilmorphs</Heading>
+                    <Para>
+                        Zilmorphs is a collection of 8,000 machine learning
+                        generated creatures on the Zilliqa blockchain.
+                    </Para>
+                    <Para>
+                        Zilmorphs were created to celebrate the creation of the
+                        Zilliqa bridge and can only be bought with Zilliqa
+                        bridge assets.
+                    </Para>
+                    <Box align="center" flex="grow">
+                        <But
+                            label={"Random morph"}
+                            onClick={() => disp.random()}
+                        />
+                    </Box>
                 </Box>
-            </Box>
 
-            <Card morph={disp.morph} />
-        </Box>
+                <Card morph={disp.morph} />
+            </Box>
+            <Footer />
+        </>
     );
 });

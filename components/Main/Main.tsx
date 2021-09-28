@@ -11,6 +11,7 @@ import {
 import { useCallback, useMemo, useRef, FC, useEffect, useState } from "react";
 import { useThree, Canvas, useFrame } from "@react-three/fiber";
 import { walletManager } from "../../state/WalletManager";
+import { But } from "../But";
 
 export const Main = observer(({ children }: { children: JSX.Element }) => {
     const router = useRouter();
@@ -21,22 +22,16 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
             <Box fill style={{ position: "absolute", bottom: "0", zIndex: 0 }}>
                 <Box pad="large" justify="between" direction="row" gap="large">
                     <Box direction="row" gap="large">
-                        <Button
+                        <But
                             label={"zilmorphs"}
-                            plain
-                            style={{ fontSize: "1.8em", fontWeight: "bold" }}
                             onClick={() => router.push("/dapp")}
                         />
-                        <Button
+                        <But
                             label={"get"}
-                            plain
-                            style={{ fontSize: "1.8em", fontWeight: "bold" }}
                             onClick={() => router.push("/dapp/get")}
                         />
-                        <Button
+                        <But
                             label={"my morphs"}
-                            plain
-                            style={{ fontSize: "1.8em", fontWeight: "bold" }}
                             onClick={() => router.push("/dapp/my")}
                         />
                     </Box>
@@ -46,7 +41,7 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                         }
                         plain
                         style={{
-                            fontSize: "1.8em",
+                            fontSize: "1em",
                             fontWeight: "bold",
                             color: walletManager.connected ? "green" : "black",
                         }}

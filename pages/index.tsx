@@ -24,11 +24,7 @@ function Background({ color }) {
     return (
         <mesh scale={[viewport.width, viewport.height, 1]}>
             <planeGeometry attach="geometry" args={[1, 1]} />
-            <a.meshBasicMaterial
-                attach="material"
-                color={color}
-                depthTest={false}
-            />
+            <a.meshBasicMaterial attach="material" color={color} />
         </mesh>
     );
 }
@@ -151,12 +147,7 @@ function Scene({
                 color="white"
                 position={mouse.to((x, y) => [x / 100, -y / 100, 6.5])}
             />
-            <Background
-                color={top.to(
-                    [0, scrollMax * 0.25, scrollMax * 0.8, scrollMax],
-                    ["#ffffff"]
-                )}
-            />
+            <Background color={"#ffffff"} />
             <Stars position={top.to((top) => [0, -1 + top / 20, 0])} />
             {/* @ts-expect-error */}
             <Images top={top} mouse={mouse} scrollMax={scrollMax} />

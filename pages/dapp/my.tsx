@@ -1,13 +1,14 @@
 import { observer } from "mobx-react-lite";
-import { Box, Paragraph, Heading } from "grommet";
+import { Box, Heading } from "grommet";
 import { useRouter } from "next/router";
 import { makeAutoObservable, runInAction } from "mobx";
 import { ApiMorph } from "../../data/interfaces";
 import { useEffect } from "react";
 import { Card } from "../../components/Card";
 import { walletManager } from "../../state/WalletManager";
+import { Footer } from "../../components/Main/Footer";
 
-class DispMultiple {
+export class DispMultiple {
     morphs: ApiMorph[] = [];
     constructor() {
         makeAutoObservable(this);
@@ -38,22 +39,27 @@ export default observer(() => {
     }, [walletManager.owned]);
 
     return (
-        <Box flex="grow" justify="center" gap="medium">
-            <Box
-                height="medium"
-                width="medium"
-                gap="medium"
-                align="center"
-                pad="large"
-                fill
-                wrap
-            >
-                {multiple.morphs.length == 0 ? (
-                    <Heading level="2">{`you have no morphs :(`}</Heading>
-                ) : (
-                    multiple.morphs.map((m) => <Card morph={m} key={m.num} />)
-                )}
+        <>
+            <Box flex="grow" justify="center" gap="medium">
+                <Box
+                    height="medium"
+                    width="medium"
+                    gap="medium"
+                    align="center"
+                    pad="large"
+                    fill
+                    wrap
+                >
+                    {multiple.morphs.length == 0 ? (
+                        <Heading level="2">{`you have no morphs :(`}</Heading>
+                    ) : (
+                        multiple.morphs.map((m) => (
+                            <Card morph={m} key={m.num} />
+                        ))
+                    )}
+                </Box>
             </Box>
-        </Box>
+            <Footer />
+        </>
     );
 });
