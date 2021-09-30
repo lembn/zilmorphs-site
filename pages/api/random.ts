@@ -8,6 +8,11 @@ function random() {
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
     const num = random();
-    const re: ApiMorph = { num, data: morphData[num], pic: `/morph/${num}.png` };
+    const re: ApiMorph = {
+        num,
+        data: morphData[num],
+        pic: `/morph/${num}.png`,
+        link: `https://zilmorphs.com/api/morph/${num}`,
+    };
     res.status(200).json(re);
 };

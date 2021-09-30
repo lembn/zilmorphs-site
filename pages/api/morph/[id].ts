@@ -11,6 +11,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         num: id,
         data: morphData[id],
         pic: `/morph/${id}.png`,
+        link: `https://zilmorphs.com/api/morph/${id}`,
     };
     res.status(200).json(re);
 };

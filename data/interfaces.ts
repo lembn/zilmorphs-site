@@ -14,6 +14,7 @@ export interface ApiMorph {
         name: string;
         stats: Piece;
     };
+    link: string;
 }
 
 /**

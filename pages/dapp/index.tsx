@@ -13,6 +13,7 @@ class RandomDisp {
     morph: ApiMorph = {
         num: "1",
         pic: "/morph/1.png",
+        link: "https://zilmorphs.com/api/morph/1",
         data: {
             name: "volotcth h",
             stats: {
