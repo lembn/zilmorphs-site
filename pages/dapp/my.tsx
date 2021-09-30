@@ -40,17 +40,18 @@ export default observer(() => {
 
     useEffect(() => {
         walletManager.update();
-    });
+    }, []);
 
     return (
         <>
             <Box flex="grow" justify="center" gap="medium">
                 <Box
+                    direction="row"
                     height="medium"
                     width="medium"
-                    gap="medium"
                     align="center"
                     pad="large"
+                    justify="center"
                     fill
                     wrap
                 >

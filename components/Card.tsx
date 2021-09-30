@@ -11,9 +11,10 @@ export const Card = observer(({ morph }: { morph: ApiMorph }) => {
             pad="small"
             round="xsmall"
             elevation="large"
-            width={{ min: "300px", max: "400px" }}
+            width={{ min: "300px", max: "375px" }}
             height={{ max: "650px" }}
             align="center"
+            margin="small"
         >
             <Heading level="2">{`#${morph.num} ${morph.data.name}`}</Heading>
             <img src={morph.pic} width="200" height="200" />
