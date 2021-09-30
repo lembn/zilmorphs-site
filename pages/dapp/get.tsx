@@ -192,8 +192,9 @@ export default observer(() => {
                         {walletManager.saleOpen ? "Sale open" : "Sale closed"}
                     </Heading>
                     <Box direction="row" gap="medium">
-                        <But
+                        <Button
                             label={"get with zETH"}
+                            size="small"
                             onClick={() =>
                                 buyer.showUI(
                                     "zETH",
@@ -204,8 +205,9 @@ export default observer(() => {
                         <Para>{`Current price: ${walletManager.zethP} zETH`}</Para>
                     </Box>
                     <Box direction="row" gap="medium">
-                        <But
+                        <Button
                             label={"get with zWBTC"}
+                            size="small"
                             onClick={() =>
                                 buyer.showUI(
                                     "zWBTC",
@@ -218,8 +220,9 @@ export default observer(() => {
                         </Para>
                     </Box>
                     <Box direction="row" gap="medium">
-                        <But
+                        <Button
                             label={"get with zUSDT"}
+                            size="small"
                             onClick={() =>
                                 buyer.showUI(
                                     "zUSDT",

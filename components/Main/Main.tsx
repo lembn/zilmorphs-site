@@ -25,8 +25,10 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                             label={"zilmorphs"}
                             onClick={() => router.push("/dapp")}
                         />
-                        <But
+                        <Button
                             label={"get"}
+                            style={{ fontWeight: "bold" }}
+                            size="small"
                             onClick={() => router.push("/dapp/get")}
                         />
                         <But
