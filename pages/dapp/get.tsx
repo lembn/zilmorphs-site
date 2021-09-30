@@ -171,7 +171,7 @@ export default observer(() => {
                     <Para>
                         Each next zilmorph sold increases the price of the next
                         by ~1 USD worth of the bridge assets. That means that
-                        the first zilmorph costs ~1$ but the last may cost even
+                        the first zilmorph costs ~$1 but the last may cost even
                         8000$!
                     </Para>
                     <Para>
