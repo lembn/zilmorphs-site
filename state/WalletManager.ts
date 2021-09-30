@@ -141,7 +141,7 @@ class WalletManager {
         if (this.thereIsZilPay() && this.getZilPay().wallet.defaultAccount) {
             const addr = normaliseAddress(
                 this.getZilPay().wallet.defaultAccount.base16
-            );
+            ).toLowerCase();
             if (addr) {
                 //@ts-expect-error
                 const states = await partialState(async () => getNoSignerZil())(
