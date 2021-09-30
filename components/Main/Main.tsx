@@ -26,7 +26,7 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                             onClick={() => router.push("/dapp")}
                         />
                         <Button
-                            label={"get"}
+                            label={"buy"}
                             style={{ fontWeight: "bold" }}
                             size="small"
                             onClick={() => router.push("/dapp/get")}

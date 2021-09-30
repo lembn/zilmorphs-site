@@ -193,7 +193,7 @@ export default observer(() => {
                     </Heading>
                     <Box direction="row" gap="medium">
                         <Button
-                            label={"get with zETH"}
+                            label={"buy with zETH"}
                             size="small"
                             onClick={() =>
                                 buyer.showUI(
@@ -206,7 +206,7 @@ export default observer(() => {
                     </Box>
                     <Box direction="row" gap="medium">
                         <Button
-                            label={"get with zWBTC"}
+                            label={"buy with zWBTC"}
                             size="small"
                             onClick={() =>
                                 buyer.showUI(
@@ -221,7 +221,7 @@ export default observer(() => {
                     </Box>
                     <Box direction="row" gap="medium">
                         <Button
-                            label={"get with zUSDT"}
+                            label={"buy with zUSDT"}
                             size="small"
                             onClick={() =>
                                 buyer.showUI(
