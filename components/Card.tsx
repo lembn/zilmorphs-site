@@ -24,6 +24,15 @@ export const Card = observer(({ morph }: { morph: ApiMorph }) => {
                     <Text
                         size="xsmall"
                         style={{ fontWeight: "bold" }}
+                        color="neutral-3"
+                    >{`Power: ${
+                        morph.data.stats.str +
+                        morph.data.stats.agi +
+                        morph.data.stats.int
+                    }`}</Text>
+                    <Text
+                        size="xsmall"
+                        style={{ fontWeight: "bold" }}
                     >{`Strength: ${morph.data.stats.str}`}</Text>
                     <Text
                         size="xsmall"
