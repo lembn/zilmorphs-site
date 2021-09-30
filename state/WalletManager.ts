@@ -13,6 +13,12 @@ function BNtoDisp(b: BN, decimals: number, precision = 6): string {
     return base.toFixed(precision);
 }
 
+function BNtoUSDprice(b: BN, usdP: Big, decimals: number, precision = 3) {
+    const base = new Big(b.toString()).div(new Big(10).pow(decimals));
+    console.log(usdP.toNumber(), base);
+    return base.mul(usdP).toFixed(precision);
+}
+
 const tokens = [
     addressbook.ethTOKEN,
     addressbook.btcTOKEN,
@@ -25,11 +31,20 @@ const sellers = [
     addressbook.USDT_SELLER,
 ];
 
+export const usdP = {
+    eth: new Big("2974"),
+    btc: new Big("43155"),
+    usdt: new Big("1"),
+};
+
 class WalletManager {
     connected: boolean = false;
     private zeth: BN = new BN(0);
     private zwbtc: BN = new BN(0);
     private zusdt: BN = new BN(0);
+    inUSDETH = "0";
+    inUSDBTC = "0";
+    inUSDUSD = "0";
     private zethPrice: BN = new BN(0);
     private zwbtcPrice: BN = new BN(0);
     private zusdtPrice: BN = new BN(0);
@@ -65,7 +80,6 @@ class WalletManager {
         }
         return this.zwbtcP;
     }
-
     get zethB() {
         return BNtoDisp(this.zeth, 18);
     }
@@ -122,12 +136,12 @@ class WalletManager {
                 query: { sale_active: "*" },
             }
         );
-        console.log(states);
+        // console.log(states);
         //@ts-expect-error
         const prices = states.splice(0, 3).map((s) => new BN(s.nft_price));
         // the btc seller sale active
         const btcseller = states.shift();
-        console.log(btcseller);
+        // console.log(btcseller);
         //@ts-expect-error
         const saleOpen = btcseller.sale_active.constructor != "False";
         runInAction(() => {
@@ -135,6 +149,13 @@ class WalletManager {
             this.zwbtcPrice = prices[1];
             this.zusdtPrice = prices[2];
             this.saleOpen = saleOpen;
+            const ethusd = BNtoUSDprice(prices[0], usdP.eth, 18);
+            const btcusd = BNtoUSDprice(prices[1], usdP.btc, 8);
+            const usdusd = BNtoUSDprice(prices[2], usdP.usdt, 6);
+
+            this.inUSDETH = ethusd;
+            this.inUSDBTC = btcusd;
+            this.inUSDUSD = usdusd;
         });
     }
     async update() {
@@ -167,9 +188,9 @@ class WalletManager {
                         ? new BN(0)
                         : new BN(s.balances[addr])
                 );
-                console.log(processed);
+                // console.log(processed);
                 // the owners of token
-                console.log(states);
+                // console.log(states);
                 const token_ids = Object.entries(states.shift().token_owners)
                     .filter(([id, address]) => ByStr20.areEqual(address, addr))
                     .map(([id, address]) => id);

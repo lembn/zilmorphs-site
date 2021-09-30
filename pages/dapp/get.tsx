@@ -14,7 +14,7 @@ import { walletManager, tokenSdk } from "../../state/WalletManager";
 import { makeAutoObservable, runInAction } from "mobx";
 import Big from "big.js";
 import { ByStr20, Uint128 } from "boost-zil";
-import { Long } from "@zilliqa-js/zilliqa";
+import { Long, BN } from "@zilliqa-js/zilliqa";
 import { Para } from "../../components/Para";
 import { But } from "../../components/But";
 import { Footer } from "../../components/Main/Footer";
@@ -202,7 +202,7 @@ export default observer(() => {
                                 )
                             }
                         />
-                        <Para>{`Current price: ${walletManager.zethP} zETH`}</Para>
+                        <Para>{`Current price: ${walletManager.zethP} zETH ~$${walletManager.inUSDETH}`}</Para>
                     </Box>
                     <Box direction="row" gap="medium">
                         <Button
@@ -216,7 +216,7 @@ export default observer(() => {
                             }
                         />
                         <Para>
-                            {`Current price: ${walletManager.zwbtcP} zWBTC`}
+                            {`Current price: ${walletManager.zwbtcP} zWBTC ~$${walletManager.inUSDBTC}`}
                         </Para>
                     </Box>
                     <Box direction="row" gap="medium">
@@ -231,7 +231,7 @@ export default observer(() => {
                             }
                         />
                         <Para>
-                            {`Current price: ${walletManager.zusdtP} zUSDT`}
+                            {`Current price: ${walletManager.zusdtP} zUSDT ~$${walletManager.inUSDUSD}`}
                         </Para>
                     </Box>
                 </Box>

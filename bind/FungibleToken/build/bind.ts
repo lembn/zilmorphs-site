@@ -276,8 +276,7 @@ const dangerousFromJSONCall =
         gasPrice,
         gasLimit,
       },
-      33,
-      1000
+     
     );
     await teardown();
     txLink(tx, t.contractTransitionName);
