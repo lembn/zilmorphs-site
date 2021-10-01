@@ -5,5 +5,5 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     if (typeof id != "string") {
         id = id.join("");
     }
-    res.redirect(`http://zilmorphs.com/morph/${id}.png`);
+    res.redirect(`https://zilmorphs.com/morph/${id}.png`);
 };
