@@ -6,6 +6,7 @@ import { addressbook } from "../data/addressbook";
 import { getNoSignerZil } from "../util/config";
 import { Big } from "big.js";
 import { FungibleToken } from "../bind/FungibleToken/build/bind";
+import { Zilmorphs } from "../bind/Zilmorphs/build/bind";
 import { getNetworkName, getVersion } from "../util/config";
 
 function BNtoDisp(b: BN, decimals: number, precision = 6): string {
@@ -235,7 +236,7 @@ class WalletManager {
     // }
 }
 
-export var tokenSdk = FungibleToken({
+const resolvers = {
     getNetworkName,
     getVersion,
     getZil: async (signer) => {
@@ -246,7 +247,10 @@ export var tokenSdk = FungibleToken({
             return { zil: getNoSignerZil(), teardown: async () => {} };
         }
     },
-});
+};
+
+export var tokenSdk = FungibleToken(resolvers);
+export var zilmorphsSdk = Zilmorphs(resolvers);
 
 export const walletManager = new WalletManager();
 

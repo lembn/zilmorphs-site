@@ -1,0 +1,400 @@
+{
+  "contract_info": {
+    "scilla_major_version": "0",
+    "vname": "Zilmorphs",
+    "params": [
+      { "vname": "contract_owner", "type": "ByStr20" },
+      { "vname": "name", "type": "String" },
+      { "vname": "symbol", "type": "String" },
+      { "vname": "max_supply", "type": "Uint256" },
+      { "vname": "reserved_supply", "type": "Uint256" },
+      { "vname": "provenance_hash", "type": "ByStr32" }
+    ],
+    "fields": [
+      { "vname": "current_owner", "type": "Option (ByStr20)", "depth": 0 },
+      { "vname": "pending_owner", "type": "Option (ByStr20)", "depth": 0 },
+      {
+        "vname": "minters",
+        "type": "Map (ByStr20) (Zilmorphs.Dummy)",
+        "depth": 1
+      },
+      { "vname": "giveaway_minter", "type": "Option (ByStr20)", "depth": 0 },
+      {
+        "vname": "token_owners",
+        "type": "Map (Uint256) (ByStr20)",
+        "depth": 1
+      },
+      { "vname": "is_token_locked", "type": "Bool", "depth": 0 },
+      {
+        "vname": "owned_token_count",
+        "type": "Map (ByStr20) (Uint256)",
+        "depth": 1
+      },
+      {
+        "vname": "token_approvals",
+        "type": "Map (Uint256) (ByStr20)",
+        "depth": 1
+      },
+      {
+        "vname": "operator_approvals",
+        "type": "Map (ByStr20) (Map (ByStr20) (Zilmorphs.Dummy))",
+        "depth": 2
+      },
+      { "vname": "token_uris", "type": "Map (Uint256) (String)", "depth": 1 },
+      { "vname": "total_supply", "type": "Uint256", "depth": 0 },
+      { "vname": "total_reserved", "type": "Uint256", "depth": 0 },
+      { "vname": "total_public", "type": "Uint256", "depth": 0 },
+      { "vname": "public_supply", "type": "Uint256", "depth": 0 },
+      { "vname": "base_uri", "type": "String", "depth": 0 }
+    ],
+    "transitions": [
+      {
+        "vname": "BalanceOf",
+        "params": [ { "vname": "address", "type": "ByStr20" } ]
+      },
+      { "vname": "TotalSupply", "params": [] },
+      { "vname": "Name", "params": [] },
+      { "vname": "Symbol", "params": [] },
+      {
+        "vname": "GetApproved",
+        "params": [ { "vname": "token_id", "type": "Uint256" } ]
+      },
+      {
+        "vname": "GetTokenURI",
+        "params": [ { "vname": "token_id", "type": "Uint256" } ]
+      },
+      {
+        "vname": "CheckTokenOwner",
+        "params": [
+          { "vname": "token_id", "type": "Uint256" },
+          { "vname": "address", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "CheckApprovedForAll",
+        "params": [
+          { "vname": "token_owner", "type": "ByStr20" },
+          { "vname": "operator", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "ConfigureMinter",
+        "params": [ { "vname": "minter", "type": "ByStr20" } ]
+      },
+      {
+        "vname": "Mint",
+        "params": [
+          { "vname": "to", "type": "ByStr20" },
+          { "vname": "token_uri", "type": "String" }
+        ]
+      },
+      {
+        "vname": "Burn",
+        "params": [ { "vname": "token_id", "type": "Uint256" } ]
+      },
+      {
+        "vname": "SetApprove",
+        "params": [
+          { "vname": "to", "type": "ByStr20" },
+          { "vname": "token_id", "type": "Uint256" }
+        ]
+      },
+      {
+        "vname": "SetApprovalForAll",
+        "params": [ { "vname": "to", "type": "ByStr20" } ]
+      },
+      {
+        "vname": "Transfer",
+        "params": [
+          { "vname": "to", "type": "ByStr20" },
+          { "vname": "token_id", "type": "Uint256" }
+        ]
+      },
+      {
+        "vname": "TransferFrom",
+        "params": [
+          { "vname": "to", "type": "ByStr20" },
+          { "vname": "token_id", "type": "Uint256" }
+        ]
+      },
+      {
+        "vname": "TransferOwnership",
+        "params": [ { "vname": "new_owner", "type": "ByStr20" } ]
+      },
+      { "vname": "AcceptOwnership", "params": [] },
+      { "vname": "RevokeOwnership", "params": [] },
+      { "vname": "UnlockTokens", "params": [] },
+      {
+        "vname": "UpdateBaseURI",
+        "params": [ { "vname": "new_base_uri", "type": "String" } ]
+      },
+      {
+        "vname": "UpdateTokenURIs",
+        "params": [ { "vname": "token_ids", "type": "List (Uint256)" } ]
+      },
+      {
+        "vname": "SetGiveawayMinter",
+        "params": [ { "vname": "address", "type": "ByStr20" } ]
+      }
+    ],
+    "procedures": [
+      {
+        "vname": "ThrowError",
+        "params": [ { "vname": "err", "type": "Zilmorphs.Error" } ]
+      },
+      {
+        "vname": "IsNotSelf",
+        "params": [
+          { "vname": "address_a", "type": "ByStr20" },
+          { "vname": "address_b", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "IsMinter",
+        "params": [ { "vname": "address", "type": "ByStr20" } ]
+      },
+      { "vname": "IsContractOwner", "params": [] },
+      {
+        "vname": "IsPendingOwner",
+        "params": [ { "vname": "address", "type": "ByStr20" } ]
+      },
+      {
+        "vname": "IsTokenOwner",
+        "params": [
+          { "vname": "token_id", "type": "Uint256" },
+          { "vname": "address", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "IsApprovedForAll",
+        "params": [
+          { "vname": "token_owner", "type": "ByStr20" },
+          { "vname": "operator", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "IsOwnerOrOperator",
+        "params": [ { "vname": "token_owner", "type": "ByStr20" } ]
+      },
+      {
+        "vname": "IsApprovedSpenderOrOperator",
+        "params": [
+          { "vname": "token_id", "type": "Uint256" },
+          { "vname": "token_owner", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "IsTransferable",
+        "params": [ { "vname": "sender", "type": "ByStr20" } ]
+      },
+      { "vname": "IsNotExceedingMaxSupply", "params": [] },
+      {
+        "vname": "IsTokenNotExist",
+        "params": [ { "vname": "token_id", "type": "Uint256" } ]
+      },
+      { "vname": "NoPendingOwner", "params": [] },
+      {
+        "vname": "UpdateTokenCount",
+        "params": [
+          { "vname": "operation", "type": "Zilmorphs.Operation" },
+          { "vname": "address", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "UpdateTokenURI",
+        "params": [ { "vname": "token_id", "type": "Uint256" } ]
+      },
+      {
+        "vname": "CheckAndSetSupply",
+        "params": [ { "vname": "is_reserved_token", "type": "Bool" } ]
+      }
+    ],
+    "events": [
+      {
+        "vname": "TokenURIsUpdated",
+        "params": [ { "vname": "token_ids", "type": "List (Uint256)" } ]
+      },
+      {
+        "vname": "BaseURIUpdated",
+        "params": [ { "vname": "base_uri", "type": "String" } ]
+      },
+      { "vname": "TokensUnlocked", "params": [] },
+      {
+        "vname": "OwnershipRevoked",
+        "params": [ { "vname": "current_owner", "type": "ByStr20" } ]
+      },
+      {
+        "vname": "OwnershipTransferAccepted",
+        "params": [
+          { "vname": "previous_current_owner", "type": "Option (ByStr20)" },
+          { "vname": "current_owner", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "OwnershipTransferInitiated",
+        "params": [
+          { "vname": "current_owner", "type": "ByStr20" },
+          { "vname": "pending_owner", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "TransferFromSuccess",
+        "params": [
+          { "vname": "from", "type": "ByStr20" },
+          { "vname": "recipient", "type": "ByStr20" },
+          { "vname": "token", "type": "Uint256" }
+        ]
+      },
+      {
+        "vname": "TransferSuccess",
+        "params": [
+          { "vname": "from", "type": "ByStr20" },
+          { "vname": "recipient", "type": "ByStr20" },
+          { "vname": "token", "type": "Uint256" }
+        ]
+      },
+      {
+        "vname": "RemoveApprovalForAllSuccess",
+        "params": [
+          { "vname": "initiator", "type": "ByStr20" },
+          { "vname": "operator", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "AddApprovalForAllSuccess",
+        "params": [
+          { "vname": "initiator", "type": "ByStr20" },
+          { "vname": "operator", "type": "ByStr20" }
+        ]
+      },
+      {
+        "vname": "AddApprovalSuccess",
+        "params": [
+          { "vname": "initiator", "type": "ByStr20" },
+          { "vname": "approved_addr", "type": "ByStr20" },
+          { "vname": "token", "type": "Uint256" }
+        ]
+      },
+      {
+        "vname": "RemoveApprovalSuccess",
+        "params": [
+          { "vname": "initiator", "type": "ByStr20" },
+          { "vname": "removed_spender", "type": "ByStr20" },
+          { "vname": "token_id", "type": "Uint256" }
+        ]
+      },
+      {
+        "vname": "BurnSuccess",
+        "params": [
+          { "vname": "initiator", "type": "ByStr20" },
+          { "vname": "burn_address", "type": "ByStr20" },
+          { "vname": "token", "type": "Uint256" }
+        ]
+      },
+      {
+        "vname": "MintSuccess",
+        "params": [
+          { "vname": "by", "type": "ByStr20" },
+          { "vname": "recipient", "type": "ByStr20" },
+          { "vname": "token_id", "type": "Uint256" },
+          { "vname": "token_uri", "type": "String" }
+        ]
+      },
+      {
+        "vname": "AddMinterSuccess",
+        "params": [ { "vname": "minter", "type": "ByStr20" } ]
+      },
+      {
+        "vname": "RemovedMinterSuccess",
+        "params": [ { "vname": "minter", "type": "ByStr20" } ]
+      }
+    ],
+    "ADTs": [
+      {
+        "tname": "Zilmorphs.Dummy",
+        "tparams": [],
+        "tmap": [ { "cname": "Zilmorphs.Dummy", "argtypes": [] } ]
+      },
+      {
+        "tname": "Zilmorphs.Error",
+        "tparams": [],
+        "tmap": [
+          { "cname": "Zilmorphs.CodeNotContractOwner", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeIsSelf", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeTokenExists", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeNotMinter", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeNotApproved", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeNotTokenOwner", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeNotFound", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeNotOperator", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeNotOwnerOrOperator", "argtypes": [] },
+          {
+            "cname": "Zilmorphs.CodeNotApprovedSpenderOrOperator",
+            "argtypes": []
+          },
+          { "cname": "Zilmorphs.CodeNotPendingOwner", "argtypes": [] },
+          { "cname": "Zilmorphs.CodePendingOwnerNotEmpty", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeTokenLocked", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeTokenAlreadyUnlocked", "argtypes": [] },
+          { "cname": "Zilmorphs.CodeMaxSupplyExceeded", "argtypes": [] },
+          {
+            "cname": "Zilmorphs.CodeMaxReservedSupplyExceeded",
+            "argtypes": []
+          },
+          {
+            "cname": "Zilmorphs.CodeMaxPublicSupplyExceeded",
+            "argtypes": []
+          }
+        ]
+      },
+      {
+        "tname": "Zilmorphs.Operation",
+        "tparams": [],
+        "tmap": [
+          { "cname": "Zilmorphs.Add", "argtypes": [] },
+          { "cname": "Zilmorphs.Sub", "argtypes": [] }
+        ]
+      },
+      {
+        "tname": "Option",
+        "tparams": [ "'A" ],
+        "tmap": [
+          { "cname": "Some", "argtypes": [ "'A" ] },
+          { "cname": "None", "argtypes": [] }
+        ]
+      },
+      {
+        "tname": "Bool",
+        "tparams": [],
+        "tmap": [
+          { "cname": "True", "argtypes": [] },
+          { "cname": "False", "argtypes": [] }
+        ]
+      },
+      {
+        "tname": "Nat",
+        "tparams": [],
+        "tmap": [
+          { "cname": "Zero", "argtypes": [] },
+          { "cname": "Succ", "argtypes": [ "Nat" ] }
+        ]
+      },
+      {
+        "tname": "List",
+        "tparams": [ "'A" ],
+        "tmap": [
+          { "cname": "Cons", "argtypes": [ "'A", "List ('A)" ] },
+          { "cname": "Nil", "argtypes": [] }
+        ]
+      },
+      {
+        "tname": "Pair",
+        "tparams": [ "'A", "'B" ],
+        "tmap": [ { "cname": "Pair", "argtypes": [ "'A", "'B" ] } ]
+      }
+    ]
+  },
+  "warnings": [],
+  "gas_remaining": "9941"
+}
+

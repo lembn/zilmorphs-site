@@ -66,7 +66,6 @@ class Buyer {
                 .calls(data.token)(Long.fromString("40000"))
                 .Transfer(data.seller, amt)
                 .send();
-            result.tx;
             notifi.show(
                 "Transaction sent!",
                 "black",

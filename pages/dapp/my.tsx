@@ -59,7 +59,7 @@ export default observer(() => {
                         <Heading level="2">{`you have no morphs :(`}</Heading>
                     ) : (
                         multiple.morphs.map((m) => (
-                            <Card morph={m} key={m.num} />
+                            <Card morph={m} key={m.num} owned />
                         ))
                     )}
                 </Box>
