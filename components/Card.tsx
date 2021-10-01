@@ -1,10 +1,34 @@
-import { Box, Tip, Text, Heading } from "grommet";
+import { Box, Tip, Text, Heading, Button } from "grommet";
 import { ApiMorph } from "../data/interfaces";
 import { observer } from "mobx-react-lite";
+import domtoimage from "dom-to-image";
+import filesaver from "file-saver";
+import { useState } from "react";
 
 export const Card = observer(({ morph }: { morph: ApiMorph }) => {
+    const [hide, setHide] = useState(false);
+    async function toPng() {
+        setHide(true);
+        try {
+            let scale = 2;
+            const domNode = document.getElementById(`morph-card-${morph.num}`);
+            const blob = await domtoimage.toBlob(domNode, {
+                width: domNode.clientWidth * scale,
+                height: domNode.clientHeight * scale,
+                style: {
+                    transform: "scale(" + scale + ")",
+                    transformOrigin: "top left",
+                },
+            });
+            filesaver.saveAs(blob, `${morph.num}.png`);
+        } catch (e) {
+            console.log(e);
+        }
+        setHide(false);
+    }
     return (
         <Box
+            id={`morph-card-${morph.num}`}
             flex="grow"
             gap="small"
             background="white"
@@ -62,6 +86,14 @@ export const Card = observer(({ morph }: { morph: ApiMorph }) => {
                     )}
                 </Box>
             </Box>
+            {!hide && (
+                <Button
+                    label={"get png"}
+                    style={{ fontWeight: "bold" }}
+                    size="small"
+                    onClick={() => toPng()}
+                />
+            )}
         </Box>
     );
 });
