@@ -12,7 +12,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         num,
         data: morphData[num],
         pic: `/morph/${num}.png`,
-        link: `https://zilmorphs.com/api/morph/${num}`,
+        link: `https://zilmorphs.com/morph/${num}.png`,
     };
     res.status(200).json(re);
 };
