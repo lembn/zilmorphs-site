@@ -125,7 +125,7 @@ export const Card = observer(
                     margin="small"
                 >
                     <Heading level="2">{`#${morph.num} ${morph.data.name}`}</Heading>
-                    <img src={morph.pic} width="200" height="200" />
+                    <img src={morph.pic} width="130" height="130" />
                     <Box direction="row" fill pad="small">
                         <Box fill>
                             <Heading level="3">Stats</Heading>

@@ -10,4 +10,5 @@ export const addressbook = {
     ETH_SELLER: new ByStr20("zil1dn3mhzmx5d2xqru00yxxs85g5yz0dphttpjwtv"),
     BTC_SELLER: new ByStr20("zil16l2zlkltca3q6j972qlncpdl87sgz6n0gx3kwv"),
     USDT_SELLER: new ByStr20("zil18ln7n2me3zxrc5y5zdgvj4ryawat0g2p3qzcr6"),
+    SLOT_MACHINE: new ByStr20("zil1taaszsa7m8vvdtdrhc2d2d553hnukrmh3nzhjx"),
 };

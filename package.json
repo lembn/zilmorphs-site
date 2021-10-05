@@ -13,7 +13,7 @@
         "@react-three/postprocessing": "^2.0.5",
         "@zilliqa-js/zilliqa": "^2.2.1",
         "big.js": "^6.1.1",
-        "boost-zil": "^1.0.5",
+        "boost-zil": "^1.0.98",
         "dom-to-image": "^2.6.0",
         "file-saver": "^2.0.5",
         "firebase": "^9.1.0",

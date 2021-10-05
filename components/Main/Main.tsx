@@ -3,9 +3,10 @@ import { Box, Button, Layer, Anchor } from "grommet";
 import { useRouter } from "next/router";
 import { walletManager } from "../../state/WalletManager";
 import { But } from "../But";
-import { notifi } from "../../state/Notification";
+import { notifi, spinResult } from "../../state/Notification";
 import { Para } from "../Para";
 import { Footer } from "./Footer";
+import spin from "../../pages/api/spin";
 
 export const Main = observer(({ children }: { children: JSX.Element }) => {
     const router = useRouter();
@@ -23,6 +24,7 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                     <Box direction="row" gap="large">
                         <But
                             label={"zilmorphs"}
+                            fontSize={"0.8em"}
                             onClick={() => router.push("/dapp")}
                         />
                         <Button
@@ -31,8 +33,15 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                             size="small"
                             onClick={() => router.push("/dapp/get")}
                         />
+                        <Button
+                            label={"play"}
+                            style={{ fontWeight: "bold" }}
+                            size="small"
+                            onClick={() => router.push("/dapp/play")}
+                        />
                         <But
-                            label={"my morphs"}
+                            fontSize={"0.8em"}
+                            label={"view"}
                             onClick={() => router.push("/dapp/my")}
                         />
                     </Box>
@@ -42,8 +51,10 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                                 ? "connected"
                                 : "connect zilpay"
                         }
+                        size="small"
                         plain
                         style={{
+                            fontSize: "0.8em",
                             fontWeight: "bold",
                             color: walletManager.connected ? "green" : "black",
                         }}
@@ -105,6 +116,37 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                                         label={notifi.anchorLabel}
                                         href={notifi.anchor}
                                     />
+                                )}
+                            </Box>
+                        </Box>
+                    </Layer>
+                )}
+                {spinResult.visible && (
+                    <Layer
+                        plain
+                        onClickOutside={() => spinResult.setVisible(false)}
+                        onEsc={() => spinResult.setVisible(false)}
+                        responsive={false}
+                    >
+                        <Box
+                            height={"100px"}
+                            width={"400px"}
+                            pad="small"
+                            flex="grow"
+                        >
+                            <Box
+                                elevation="large"
+                                round="small"
+                                background="white"
+                                fill
+                                align="center"
+                                justify="center"
+                                pad="small"
+                            >
+                                {spinResult.won ? (
+                                    <Para>{`You won total: $${spinResult.win} ZIL. Morph earned: $${spinResult.bonus} ZIL`}</Para>
+                                ) : (
+                                    <Para>{`No reward! Good luck next time!`}</Para>
                                 )}
                             </Box>
                         </Box>

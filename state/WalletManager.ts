@@ -6,6 +6,7 @@ import { addressbook } from "../data/addressbook";
 import { getNoSignerZil } from "../util/config";
 import { Big } from "big.js";
 import { FungibleToken } from "../bind/FungibleToken/build/bind";
+import { SlotMachine } from "../bind/SlotMachine/build/bind";
 import { Zilmorphs } from "../bind/Zilmorphs/build/bind";
 import { getNetworkName, getVersion } from "../util/config";
 
@@ -39,6 +40,8 @@ export const usdP = {
 };
 
 class WalletManager {
+    unclaimedSpins: number;
+    addr: string;
     connected: boolean = false;
     private zeth: BN = new BN(0);
     private zwbtc: BN = new BN(0);
@@ -179,6 +182,14 @@ class WalletManager {
                         includeInit: "false",
                         //@ts-expect-error
                         query: { token_owners: "*" },
+                    },
+                    {
+                        contractAddress: addressbook.SLOT_MACHINE,
+                        includeInit: "false",
+                        query: {
+                            players_claimed: { [addr]: "*" },
+                            players_spins: { [addr]: "*" },
+                        },
                     }
                 );
                 const stat = states.splice(0, 3) as unknown as {
@@ -196,16 +207,31 @@ class WalletManager {
                     .filter(([id, address]) => ByStr20.areEqual(address, addr))
                     .map(([id, address]) => id);
 
+                // states
+                const slotMachine = states.shift() as unknown as {
+                    players_claimed: { [k: string]: string };
+                    players_spins: { [k: string]: string };
+                };
+
+                const claimed = parseInt(
+                    slotMachine.players_claimed[addr] || "0"
+                );
+                const spins = parseInt(slotMachine.players_spins[addr] || "0");
+
+                const unclaimed = spins - claimed;
+
                 runInAction(() => {
                     this.zeth = processed[0];
                     this.zwbtc = processed[1];
                     this.zusdt = processed[2];
                     this.owned = token_ids;
+                    this.unclaimedSpins = unclaimed;
+                    this.addr = addr;
                 });
             }
         }
     }
-    async aquireWallet(silent?: boolean) {
+    async aquireWallet(silent?: boolean, noUpdate?: boolean) {
         if (this.thereIsZilPay()) {
             const connected = await this.getZilPay().wallet.connect();
             runInAction(() => {
@@ -213,8 +239,10 @@ class WalletManager {
             });
             console.debug({ connected });
             if (connected) {
-                this.updatePrices();
-                this.update();
+                if (!noUpdate) {
+                    this.updatePrices();
+                    this.update();
+                }
                 return window.zilPay as unknown as Zilliqa;
             } else {
                 throw new Error("zilpay not connected");
@@ -251,7 +279,7 @@ const resolvers = {
 
 export var tokenSdk = FungibleToken(resolvers);
 export var zilmorphsSdk = Zilmorphs(resolvers);
-
+export var slotMachineSdk = SlotMachine(resolvers);
 export const walletManager = new WalletManager();
 
 export const getZil = async (signer: boolean) => {
