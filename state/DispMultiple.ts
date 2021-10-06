@@ -25,7 +25,7 @@ export class DispMultiple {
         try {
             const res = await fetch("/api/morph/batch", {
                 headers: { "Content-type": "application/json" },
-                body: JSON.stringify({ ids: ["234", "2345"] }),
+                body: JSON.stringify({ ids }),
                 method: "POST",
             });
             const data = (await res.json()) as ApiMorph[];
