@@ -4,7 +4,7 @@ import { Heading } from "grommet";
 import { Para } from "../components/Para";
 import { But } from "../components/But";
 import { observer } from "mobx-react-lite";
-import { DispMultiple } from "./dapp/my";
+import { DispMultiple } from "../state/DispMultiple";
 import { useEffect } from "react";
 
 const multiple = new DispMultiple();

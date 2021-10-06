@@ -13,9 +13,9 @@ import { ContractSubStateQueryCast, partialState } from "boost-zil";
  * that was used to generate this sdk
  */
 export const contractSignature =
-  "hash_0xc0420baf5e3c128496dab69934fcdca17cd69619f0ff802319bd4d72a50e2481";
+    "hash_0xc0420baf5e3c128496dab69934fcdca17cd69619f0ff802319bd4d72a50e2481";
 const sig: {
-  contractSignature: "hash_0xc0420baf5e3c128496dab69934fcdca17cd69619f0ff802319bd4d72a50e2481";
+    contractSignature: "hash_0xc0420baf5e3c128496dab69934fcdca17cd69619f0ff802319bd4d72a50e2481";
 } = { contractSignature };
 
 export const code = `
@@ -413,20 +413,20 @@ declare var window: any;
 export type TXLog = (t: Transaction, msg: string) => void;
 
 const thereIsZilPay = () => {
-  if (typeof window != "undefined") {
-    if (typeof window.zilPay != "undefined") {
-      return true;
+    if (typeof window != "undefined") {
+        if (typeof window.zilPay != "undefined") {
+            return true;
+        }
     }
-  }
-  return false;
+    return false;
 };
 
 const getTrail = () => {
-  if (thereIsZilPay()) {
-    return [];
-  } else {
-    return [31, 1000];
-  }
+    if (thereIsZilPay()) {
+        return [];
+    } else {
+        return [31, 1000];
+    }
 };
 
 /**
@@ -434,90 +434,90 @@ const getTrail = () => {
  * @warning WILL NOT THROW ERRORS IF CONTRACT SIGNATURES ARE INVALID
  */
 const dangerousFromJSONDeploy =
-  (txLink: TXLog) =>
-  ({ getVersion, getZil }: SDKResolvers) =>
-  async (t: Omit<Omit<DeployData, "isDeploy">, "code">, gasLimit: Long) => {
-    let teardownFun: any;
-    try {
-      const { zil, teardown } = await getZil(true);
-      teardownFun = teardown;
-      const gasPrice = await getMinGasPrice(zil);
+    (txLink: TXLog) =>
+    ({ getVersion, getZil }: SDKResolvers) =>
+    async (t: Omit<Omit<DeployData, "isDeploy">, "code">, gasLimit: Long) => {
+        let teardownFun: any;
+        try {
+            const { zil, teardown } = await getZil(true);
+            teardownFun = teardown;
+            const gasPrice = await getMinGasPrice(zil);
 
-      const contract = newContract(zil, code, t.data);
-      const [tx, con] = await contract.deploy(
-        {
-          version: getVersion(),
-          gasPrice,
-          gasLimit,
-        },
-        ...getTrail()
-      );
-      await teardown();
-      txLink(tx, "Deploy");
-      if (!con.address) {
-        if (con.error) {
-          throw new Error(JSON.stringify(con.error, null, 2));
+            const contract = newContract(zil, code, t.data);
+            const [tx, con] = await contract.deploy(
+                {
+                    version: getVersion(),
+                    gasPrice,
+                    gasLimit,
+                },
+                ...getTrail()
+            );
+            await teardown();
+            txLink(tx, "Deploy");
+            if (!con.address) {
+                if (con.error) {
+                    throw new Error(JSON.stringify(con.error, null, 2));
+                }
+                throw new Error("Contract failed to deploy");
+            }
+            return { tx, contract: con, address: new T.ByStr20(con.address) };
+        } catch (e) {
+            if (teardownFun) {
+                await teardownFun();
+            }
+            throw e;
         }
-        throw new Error("Contract failed to deploy");
-      }
-      return { tx, contract: con, address: new T.ByStr20(con.address) };
-    } catch (e) {
-      if (teardownFun) {
-        await teardownFun();
-      }
-      throw e;
-    }
-    throw "this never happens leave me alone ts";
-  };
+        throw "this never happens leave me alone ts";
+    };
 
 /**
  * will try to send a transaction to the contract
  * @warning WILL NOT THROW ERRORS IF CONTRACT SIGNATURES ARE INVALID
  */
 const dangerousFromJSONCall =
-  (txLink: TXLog) =>
-  ({ getVersion, getZil }: SDKResolvers) =>
-  async (t: Omit<CallData, "isDeploy">, gasLimit: Long) => {
-    let teardownFun: any;
-    try {
-      const { zil, teardown } = await getZil(true);
-      teardownFun = teardown;
-      const gasPrice = await getMinGasPrice(zil);
-      const contract = getContract(
-        zil,
-        new T.ByStr20(t.contractAddress).toSend()
-      );
+    (txLink: TXLog) =>
+    ({ getVersion, getZil }: SDKResolvers) =>
+    async (t: Omit<CallData, "isDeploy">, gasLimit: Long) => {
+        let teardownFun: any;
+        try {
+            const { zil, teardown } = await getZil(true);
+            teardownFun = teardown;
+            const gasPrice = await getMinGasPrice(zil);
+            const contract = getContract(
+                zil,
+                new T.ByStr20(t.contractAddress).toSend()
+            );
 
-      const tx = await contract.call(
-        t.contractTransitionName,
-        t.data,
-        {
-          version: getVersion(),
-          amount: new BN(t.amount),
-          gasPrice,
-          gasLimit,
-        },
-        ...getTrail()
-      );
-      await teardown();
-      txLink(tx, t.contractTransitionName);
-      return { tx };
-    } catch (e) {
-      if (teardownFun) {
-        await teardownFun();
-      }
-      throw e;
-    }
-    throw "this never happens leave me alone ts";
-  };
+            const tx = await contract.call(
+                t.contractTransitionName,
+                t.data,
+                {
+                    version: getVersion(),
+                    amount: new BN(t.amount),
+                    gasPrice,
+                    gasLimit,
+                },
+                ...getTrail()
+            );
+            await teardown();
+            txLink(tx, t.contractTransitionName);
+            return { tx };
+        } catch (e) {
+            if (teardownFun) {
+                await teardownFun();
+            }
+            throw e;
+        }
+        throw "this never happens leave me alone ts";
+    };
 
 export interface SDKResolvers {
-  getZil: (
-    requireSigner?: boolean
-  ) => Promise<{ zil: Zilliqa; teardown: () => Promise<void> }>;
-  getVersion: () => number;
-  getNetworkName: () => string;
-  txLog?: TXLog;
+    getZil: (
+        requireSigner?: boolean
+    ) => Promise<{ zil: Zilliqa; teardown: () => Promise<void> }>;
+    getVersion: () => number;
+    getNetworkName: () => string;
+    txLog?: TXLog;
 }
 
 const RED = "\x1B[31m%s\x1b[0m";
@@ -526,47 +526,47 @@ const GREEN = "\x1B[32m%s\x1b[0m";
 const MAGENTA = "\x1B[35m%s\x1b[0m";
 
 interface Value {
-  vname: string;
-  type: string;
-  value: string | ADTValue | ADTValue[] | string[];
+    vname: string;
+    type: string;
+    value: string | ADTValue | ADTValue[] | string[];
 }
 interface ADTValue {
-  constructor: string;
-  argtypes: string[];
-  arguments: Value[] | string[];
+    constructor: string;
+    argtypes: string[];
+    arguments: Value[] | string[];
 }
 
 interface DeployData {
-  isDeploy: boolean;
-  /**
-   * the signature hash of the source code of the contract that this data interacts with
-   */
-  contractSignature: string;
-  /**
-   * code of the contract to deploy
-   */
-  code: string;
-  data: any[];
+    isDeploy: boolean;
+    /**
+     * the signature hash of the source code of the contract that this data interacts with
+     */
+    contractSignature: string;
+    /**
+     * code of the contract to deploy
+     */
+    code: string;
+    data: any[];
 }
 interface CallData {
-  isDeploy: boolean;
-  /**
-   * the signature hash of the source code of the contract that this data interacts with
-   */
-  contractSignature: string;
-  /**
-   * contract to send the transaction to
-   */
-  contractAddress: string;
-  /**
-   * zil amount to send
-   */
-  amount: string;
-  /**
-   * the name of the transition called in the target contract
-   */
-  contractTransitionName: string;
-  data: any[];
+    isDeploy: boolean;
+    /**
+     * the signature hash of the source code of the contract that this data interacts with
+     */
+    contractSignature: string;
+    /**
+     * contract to send the transaction to
+     */
+    contractAddress: string;
+    /**
+     * zil amount to send
+     */
+    amount: string;
+    /**
+     * the name of the transition called in the target contract
+     */
+    contractTransitionName: string;
+    data: any[];
 }
 /**
  * general interface of the data returned by toJSON() on the transitions
@@ -574,507 +574,519 @@ interface CallData {
 type TransactionData = DeployData | CallData;
 
 function getContract(
-  zil: Zilliqa,
-  a: string
+    zil: Zilliqa,
+    a: string
 ): Contract & {
-  call: (
-    transition: string,
-    args: Value[],
-    params: Pick<
-      TxParams,
-      "version" | "amount" | "gasPrice" | "gasLimit" | "nonce" | "pubKey"
-    >,
-    attempts?: number,
-    interval?: number,
-    toDs?: boolean
-  ) => ReturnType<Contract["call"]>;
+    call: (
+        transition: string,
+        args: Value[],
+        params: Pick<
+            TxParams,
+            "version" | "amount" | "gasPrice" | "gasLimit" | "nonce" | "pubKey"
+        >,
+        attempts?: number,
+        interval?: number,
+        toDs?: boolean
+    ) => ReturnType<Contract["call"]>;
 } {
-  const address = new T.ByStr20(a).toSend();
-  //@ts-ignore
-  return zil.contracts.at(address);
+    const address = new T.ByStr20(a).toSend();
+    //@ts-ignore
+    return zil.contracts.at(address);
 }
 
 function newContract(zil: Zilliqa, code: string, init: Value[]): Contract {
-  //@ts-ignore
-  return zil.contracts.new(code, init);
+    //@ts-ignore
+    return zil.contracts.new(code, init);
 }
 
 async function getMinGasPrice(zil: Zilliqa) {
-  const res = await zil.blockchain.getMinimumGasPrice();
-  if (!res.result) {
-    throw "no gas price";
-  }
-  return new BN(res.result);
+    const res = await zil.blockchain.getMinimumGasPrice();
+    if (!res.result) {
+        throw "no gas price";
+    }
+    return new BN(res.result);
 }
 
 export const SlotMachine = (resolvers: SDKResolvers) => {
-  const logUrl = (id: string, msg: string) => {
-    const network = getNetworkName();
-    console.log(MAGENTA, msg);
-    if (network == "mainnet" || network == "testnet") {
-      const url = `https://viewblock.io/zilliqa/tx/0x${id}?network=${network}`;
-      console.log(CYAN, url);
-    }
-  };
-  const zilpayLog = (t: Transaction, msg: string) => {
-    console.log(t);
-    //@ts-ignore
-    const id = t.ID;
-    logUrl(id as string, msg);
-  };
-  const nodeLog = (t: Transaction, msg: string) => {
-    const id = t.id;
-    logUrl(id as string, msg);
-    const receipt = t.getReceipt();
-    if (receipt) {
-      if (receipt.success) {
-        console.log(GREEN, "Success.");
-      } else {
-        console.log(RED, "Failed.");
-        if (receipt.errors) {
-          Object.entries(receipt.errors).map(([k, v]) => {
-            console.log(RED, v);
-          });
+    const logUrl = (id: string, msg: string) => {
+        const network = getNetworkName();
+        console.log(MAGENTA, msg);
+        if (network == "mainnet" || network == "testnet") {
+            const url = `https://viewblock.io/zilliqa/tx/0x${id}?network=${network}`;
+            console.log(CYAN, url);
         }
-      }
-      if (receipt.event_logs) {
-        const events = receipt.event_logs as {
-          _eventname: string;
-          address: string;
-          params: { value: string; vname: string }[];
-        }[];
-        if (events.length != 0) {
-          console.log(CYAN, `Events🕵️‍♀️`);
-          events.forEach((e) => {
-            console.log(CYAN, `${e._eventname}`);
-            e.params.forEach((p) =>
-              console.log(CYAN, `${p.vname}: ${p.value}`)
-            );
-          });
+    };
+    const zilpayLog = (t: Transaction, msg: string) => {
+        console.log(t);
+        //@ts-ignore
+        const id = t.ID;
+        logUrl(id as string, msg);
+    };
+    const nodeLog = (t: Transaction, msg: string) => {
+        const id = t.id;
+        logUrl(id as string, msg);
+        const receipt = t.getReceipt();
+        if (receipt) {
+            if (receipt.success) {
+                console.log(GREEN, "Success.");
+            } else {
+                console.log(RED, "Failed.");
+                if (receipt.errors) {
+                    Object.entries(receipt.errors).map(([k, v]) => {
+                        console.log(RED, v);
+                    });
+                }
+            }
+            if (receipt.event_logs) {
+                const events = receipt.event_logs as {
+                    _eventname: string;
+                    address: string;
+                    params: { value: string; vname: string }[];
+                }[];
+                if (events.length != 0) {
+                    console.log(CYAN, `Events🕵️‍♀️`);
+                    events.forEach((e) => {
+                        console.log(CYAN, `${e._eventname}`);
+                        e.params.forEach((p) =>
+                            console.log(CYAN, `${p.vname}: ${p.value}`)
+                        );
+                    });
+                }
+            }
         }
-      }
-    }
-  };
-  const defaultTxLog = (t: Transaction, msg: string) => {
-    if (thereIsZilPay()) {
-      zilpayLog(t, msg);
-    } else {
-      nodeLog(t, msg);
-    }
-  };
-  const { getZil, getVersion, getNetworkName } = resolvers;
-  const txLink = resolvers.txLog ? resolvers.txLog : defaultTxLog;
+    };
+    const defaultTxLog = (t: Transaction, msg: string) => {
+        if (thereIsZilPay()) {
+            zilpayLog(t, msg);
+        } else {
+            nodeLog(t, msg);
+        }
+    };
+    const { getZil, getVersion, getNetworkName } = resolvers;
+    const txLink = resolvers.txLog ? resolvers.txLog : defaultTxLog;
 
-  return {
-    async balance(a: T.ByStr20) {
-      const res = await getZil();
-      const bal = await res.zil.blockchain.getBalance(a.toSend());
-      await res.teardown();
-      return new T.Uint128(bal.result.balance);
-    },
+    return {
+        async balance(a: T.ByStr20) {
+            const res = await getZil();
+            const bal = await res.zil.blockchain.getBalance(a.toSend());
+            await res.teardown();
+            return new T.Uint128(bal.result.balance);
+        },
 
-    /**
-     * will try to send a transaction to the contract
-     * @warning WILL NOT THROW ERRORS IF CONTRACT SIGNATURES ARE INVALID
-     */
-    dangerousFromJSONDeploy: dangerousFromJSONDeploy(txLink)(resolvers),
-
-    /**
-     * will try to send a transaction to the contract
-     * @warning WILL NOT THROW ERRORS IF CONTRACT SIGNATURES ARE INVALID
-     */
-    dangerousFromJSONCall: dangerousFromJSONCall(txLink)(resolvers),
-
-    deploy: (
-      gasLimit: Long,
-      __init_admin_pubkey: T.ByStr33,
-      __init_fee_addr: T.ByStr20,
-      __init_ticket_price: T.Uint128,
-      __init_fee_cut: T.Uint128
-    ) => {
-      const transactionData = {
-        isDeploy: true,
-        ...sig,
-        data: [
-          {
-            type: `Uint32`,
-            vname: `_scilla_version`,
-            value: "0",
-          },
-          {
-            type: `ByStr33`,
-            vname: `init_admin_pubkey`,
-            value: __init_admin_pubkey.toSend(),
-          },
-          {
-            type: `ByStr20`,
-            vname: `init_fee_addr`,
-            value: __init_fee_addr.toSend(),
-          },
-          {
-            type: `Uint128`,
-            vname: `init_ticket_price`,
-            value: __init_ticket_price.toSend(),
-          },
-          {
-            type: `Uint128`,
-            vname: `init_fee_cut`,
-            value: __init_fee_cut.toSend(),
-          },
-        ],
-      };
-      return {
         /**
-         * get data needed to perform this transaction
-         * */
-        toJSON: () => transactionData,
+         * will try to send a transaction to the contract
+         * @warning WILL NOT THROW ERRORS IF CONTRACT SIGNATURES ARE INVALID
+         */
+        dangerousFromJSONDeploy: dangerousFromJSONDeploy(txLink)(resolvers),
+
         /**
-         * send the transaction to the blockchain
-         * */
-        send: async () =>
-          dangerousFromJSONDeploy(txLink)(resolvers)(transactionData, gasLimit),
-      };
-    },
+         * will try to send a transaction to the contract
+         * @warning WILL NOT THROW ERRORS IF CONTRACT SIGNATURES ARE INVALID
+         */
+        dangerousFromJSONCall: dangerousFromJSONCall(txLink)(resolvers),
 
-    state: <
-      E extends "true" | "false",
-      Query extends ContractSubStateQueryCast<
-        | "players_spins"
-        | "players_claimed"
-        | "admin"
-        | "admin_pubkey"
-        | "staging_admin_pubkey"
-        | "win_tiers"
-        | "fee_addr"
-        | "ticket_price"
-        | "fee_cut"
-        | "tmp_ticket_amt"
-        | "void_cheques"
-        | "tmp_target"
-      >
-    >(
-      query: Query,
-      includeInit: E
-    ) => ({
-      get: (...contractAddresses: T.ByStr20[]) =>
-        partialState(async () => {
-          return (await getZil()).zil;
-        })<
-          typeof query,
-          typeof includeInit,
-          {
-            contractAddress: typeof contractAddresses[0];
-            includeInit: typeof includeInit;
-            query: typeof query;
-          },
-          {
-            init_admin_pubkey: any;
-            init_fee_addr: any;
-            init_ticket_price: any;
-            init_fee_cut: any;
-          }
-        >(
-          ...contractAddresses.map((c) => ({
-            contractAddress: c,
-            includeInit,
-            query,
-          }))
-        ),
-    }),
-
-    /**
-     * interface for scilla contract with source code hash:
-     * 0xc0420baf5e3c128496dab69934fcdca17cd69619f0ff802319bd4d72a50e2481
-     */
-    calls: (a: T.ByStr20) => (gasLimit: Long) => {
-      const signer = signTransition(a);
-      return {
-        SetStagedAdmin: (__staged: T.ByStr33) => {
-          const transactionData = {
-            isDeploy: false,
-            ...sig,
-            contractAddress: a.toSend(),
-            contractTransitionName: `SetStagedAdmin`,
-            data: [
-              {
-                type: `ByStr33`,
-                vname: `staged`,
-                value: __staged.toSend(),
-              },
-            ],
-            amount: new BN(0).toString(),
-          };
-          return {
-            /**
-             * get data needed to perform this transaction
-             * */
-            toJSON: () => transactionData,
-            /**
-             * send the transaction to the blockchain
-             * */
-            send: async () =>
-              dangerousFromJSONCall(txLink)(resolvers)(
-                transactionData,
-                gasLimit
-              ),
-          };
-        },
-
-        ClaimStagedAdmin: () => {
-          const transactionData = {
-            isDeploy: false,
-            ...sig,
-            contractAddress: a.toSend(),
-            contractTransitionName: `ClaimStagedAdmin`,
-            data: [],
-            amount: new BN(0).toString(),
-          };
-          return {
-            /**
-             * get data needed to perform this transaction
-             * */
-            toJSON: () => transactionData,
-            /**
-             * send the transaction to the blockchain
-             * */
-            send: async () =>
-              dangerousFromJSONCall(txLink)(resolvers)(
-                transactionData,
-                gasLimit
-              ),
-          };
-        },
-
-        SetWinTiers: (__tiers: T.List<T.CustomADT<[T.Uint128, T.Uint128]>>) => {
-          __tiers.setContractAddress(a);
-          __tiers.setADTname("Uint128Pair");
-          const transactionData = {
-            isDeploy: false,
-            ...sig,
-            contractAddress: a.toSend(),
-            contractTransitionName: `SetWinTiers`,
-            data: [
-              {
-                type: `List (${a.toSend().toLowerCase()}.Uint128Pair)`,
-                vname: `tiers`,
-                value: __tiers.toSend(),
-              },
-            ],
-            amount: new BN(0).toString(),
-          };
-          return {
-            /**
-             * get data needed to perform this transaction
-             * */
-            toJSON: () => transactionData,
-            /**
-             * send the transaction to the blockchain
-             * */
-            send: async () =>
-              dangerousFromJSONCall(txLink)(resolvers)(
-                transactionData,
-                gasLimit
-              ),
-          };
-        },
-
-        Send: (__to: T.ByStr20, __amt: T.Uint128) => {
-          const transactionData = {
-            isDeploy: false,
-            ...sig,
-            contractAddress: a.toSend(),
-            contractTransitionName: `Send`,
-            data: [
-              {
-                type: `ByStr20`,
-                vname: `to`,
-                value: __to.toSend(),
-              },
-              {
-                type: `Uint128`,
-                vname: `amt`,
-                value: __amt.toSend(),
-              },
-            ],
-            amount: new BN(0).toString(),
-          };
-          return {
-            /**
-             * get data needed to perform this transaction
-             * */
-            toJSON: () => transactionData,
-            /**
-             * send the transaction to the blockchain
-             * */
-            send: async () =>
-              dangerousFromJSONCall(txLink)(resolvers)(
-                transactionData,
-                gasLimit
-              ),
-          };
-        },
-
-        UpdateFeeAddr: (__new: T.ByStr20) => {
-          const transactionData = {
-            isDeploy: false,
-            ...sig,
-            contractAddress: a.toSend(),
-            contractTransitionName: `UpdateFeeAddr`,
-            data: [
-              {
-                type: `ByStr20`,
-                vname: `new`,
-                value: __new.toSend(),
-              },
-            ],
-            amount: new BN(0).toString(),
-          };
-          return {
-            /**
-             * get data needed to perform this transaction
-             * */
-            toJSON: () => transactionData,
-            /**
-             * send the transaction to the blockchain
-             * */
-            send: async () =>
-              dangerousFromJSONCall(txLink)(resolvers)(
-                transactionData,
-                gasLimit
-              ),
-          };
-        },
-
-        UpdateTicketPrice: (__new: T.Uint128) => {
-          const transactionData = {
-            isDeploy: false,
-            ...sig,
-            contractAddress: a.toSend(),
-            contractTransitionName: `UpdateTicketPrice`,
-            data: [
-              {
-                type: `Uint128`,
-                vname: `new`,
-                value: __new.toSend(),
-              },
-            ],
-            amount: new BN(0).toString(),
-          };
-          return {
-            /**
-             * get data needed to perform this transaction
-             * */
-            toJSON: () => transactionData,
-            /**
-             * send the transaction to the blockchain
-             * */
-            send: async () =>
-              dangerousFromJSONCall(txLink)(resolvers)(
-                transactionData,
-                gasLimit
-              ),
-          };
-        },
-
-        UpdateFeeCut: (__new: T.Uint128) => {
-          const transactionData = {
-            isDeploy: false,
-            ...sig,
-            contractAddress: a.toSend(),
-            contractTransitionName: `UpdateFeeCut`,
-            data: [
-              {
-                type: `Uint128`,
-                vname: `new`,
-                value: __new.toSend(),
-              },
-            ],
-            amount: new BN(0).toString(),
-          };
-          return {
-            /**
-             * get data needed to perform this transaction
-             * */
-            toJSON: () => transactionData,
-            /**
-             * send the transaction to the blockchain
-             * */
-            send: async () =>
-              dangerousFromJSONCall(txLink)(resolvers)(
-                transactionData,
-                gasLimit
-              ),
-          };
-        },
-
-        AddFunds: (amount: T.Uint128) => {
-          const transactionData = {
-            isDeploy: false,
-            ...sig,
-            contractAddress: a.toSend(),
-            contractTransitionName: `AddFunds`,
-            data: [],
-            amount: amount.value.toString(),
-          };
-          return {
-            /**
-             * get data needed to perform this transaction
-             * */
-            toJSON: () => transactionData,
-            /**
-             * send the transaction to the blockchain
-             * */
-            send: async () =>
-              dangerousFromJSONCall(txLink)(resolvers)(
-                transactionData,
-                gasLimit
-              ),
-          };
-        },
-
-        ClaimSpins: (
-          __target: T.ByStr20,
-          __spins: T.List<
-            T.CustomADT<[T.Uint128, T.Uint128, T.Uint128, T.ByStr64]>
-          >
+        deploy: (
+            gasLimit: Long,
+            __init_admin_pubkey: T.ByStr33,
+            __init_fee_addr: T.ByStr20,
+            __init_ticket_price: T.Uint128,
+            __init_fee_cut: T.Uint128
         ) => {
-          __spins.setContractAddress(a);
-          __spins.setADTname("SpinClaim");
-          const transactionData = {
-            isDeploy: false,
-            ...sig,
-            contractAddress: a.toSend(),
-            contractTransitionName: `ClaimSpins`,
-            data: [
-              {
-                type: `ByStr20`,
-                vname: `target`,
-                value: __target.toSend(),
-              },
-              {
-                type: `List (${a.toSend().toLowerCase()}.SpinClaim)`,
-                vname: `spins`,
-                value: __spins.toSend(),
-              },
-            ],
-            amount: new BN(0).toString(),
-          };
-          return {
-            /**
-             * get data needed to perform this transaction
-             * */
-            toJSON: () => transactionData,
-            /**
-             * send the transaction to the blockchain
-             * */
-            send: async () =>
-              dangerousFromJSONCall(txLink)(resolvers)(
-                transactionData,
-                gasLimit
-              ),
-          };
+            const transactionData = {
+                isDeploy: true,
+                ...sig,
+                data: [
+                    {
+                        type: `Uint32`,
+                        vname: `_scilla_version`,
+                        value: "0",
+                    },
+                    {
+                        type: `ByStr33`,
+                        vname: `init_admin_pubkey`,
+                        value: __init_admin_pubkey.toSend(),
+                    },
+                    {
+                        type: `ByStr20`,
+                        vname: `init_fee_addr`,
+                        value: __init_fee_addr.toSend(),
+                    },
+                    {
+                        type: `Uint128`,
+                        vname: `init_ticket_price`,
+                        value: __init_ticket_price.toSend(),
+                    },
+                    {
+                        type: `Uint128`,
+                        vname: `init_fee_cut`,
+                        value: __init_fee_cut.toSend(),
+                    },
+                ],
+            };
+            return {
+                /**
+                 * get data needed to perform this transaction
+                 * */
+                toJSON: () => transactionData,
+                /**
+                 * send the transaction to the blockchain
+                 * */
+                send: async () =>
+                    dangerousFromJSONDeploy(txLink)(resolvers)(
+                        transactionData,
+                        gasLimit
+                    ),
+            };
         },
-      };
-    },
-  };
+
+        state: <
+            E extends "true" | "false",
+            Query extends ContractSubStateQueryCast<
+                | "players_spins"
+                | "players_claimed"
+                | "admin"
+                | "admin_pubkey"
+                | "staging_admin_pubkey"
+                | "win_tiers"
+                | "fee_addr"
+                | "ticket_price"
+                | "fee_cut"
+                | "tmp_ticket_amt"
+                | "void_cheques"
+                | "tmp_target"
+            >
+        >(
+            query: Query,
+            includeInit: E
+        ) => ({
+            get: (...contractAddresses: T.ByStr20[]) =>
+                //@ts-ignore
+                partialState(async () => {
+                    return (await getZil()).zil;
+                })<
+                    typeof query,
+                    typeof includeInit,
+                    {
+                        contractAddress: typeof contractAddresses[0];
+                        includeInit: typeof includeInit;
+                        query: typeof query;
+                    },
+                    {
+                        init_admin_pubkey: any;
+                        init_fee_addr: any;
+                        init_ticket_price: any;
+                        init_fee_cut: any;
+                    }
+                >(
+                    ...contractAddresses.map((c) => ({
+                        contractAddress: c,
+                        includeInit,
+                        query,
+                    }))
+                ),
+        }),
+
+        /**
+         * interface for scilla contract with source code hash:
+         * 0xc0420baf5e3c128496dab69934fcdca17cd69619f0ff802319bd4d72a50e2481
+         */
+        calls: (a: T.ByStr20) => (gasLimit: Long) => {
+            const signer = signTransition(a);
+            return {
+                SetStagedAdmin: (__staged: T.ByStr33) => {
+                    const transactionData = {
+                        isDeploy: false,
+                        ...sig,
+                        contractAddress: a.toSend(),
+                        contractTransitionName: `SetStagedAdmin`,
+                        data: [
+                            {
+                                type: `ByStr33`,
+                                vname: `staged`,
+                                value: __staged.toSend(),
+                            },
+                        ],
+                        amount: new BN(0).toString(),
+                    };
+                    return {
+                        /**
+                         * get data needed to perform this transaction
+                         * */
+                        toJSON: () => transactionData,
+                        /**
+                         * send the transaction to the blockchain
+                         * */
+                        send: async () =>
+                            dangerousFromJSONCall(txLink)(resolvers)(
+                                transactionData,
+                                gasLimit
+                            ),
+                    };
+                },
+
+                ClaimStagedAdmin: () => {
+                    const transactionData = {
+                        isDeploy: false,
+                        ...sig,
+                        contractAddress: a.toSend(),
+                        contractTransitionName: `ClaimStagedAdmin`,
+                        data: [],
+                        amount: new BN(0).toString(),
+                    };
+                    return {
+                        /**
+                         * get data needed to perform this transaction
+                         * */
+                        toJSON: () => transactionData,
+                        /**
+                         * send the transaction to the blockchain
+                         * */
+                        send: async () =>
+                            dangerousFromJSONCall(txLink)(resolvers)(
+                                transactionData,
+                                gasLimit
+                            ),
+                    };
+                },
+
+                SetWinTiers: (
+                    __tiers: T.List<T.CustomADT<[T.Uint128, T.Uint128]>>
+                ) => {
+                    __tiers.setContractAddress(a);
+                    __tiers.setADTname("Uint128Pair");
+                    const transactionData = {
+                        isDeploy: false,
+                        ...sig,
+                        contractAddress: a.toSend(),
+                        contractTransitionName: `SetWinTiers`,
+                        data: [
+                            {
+                                type: `List (${a
+                                    .toSend()
+                                    .toLowerCase()}.Uint128Pair)`,
+                                vname: `tiers`,
+                                value: __tiers.toSend(),
+                            },
+                        ],
+                        amount: new BN(0).toString(),
+                    };
+                    return {
+                        /**
+                         * get data needed to perform this transaction
+                         * */
+                        toJSON: () => transactionData,
+                        /**
+                         * send the transaction to the blockchain
+                         * */
+                        send: async () =>
+                            dangerousFromJSONCall(txLink)(resolvers)(
+                                transactionData,
+                                gasLimit
+                            ),
+                    };
+                },
+
+                Send: (__to: T.ByStr20, __amt: T.Uint128) => {
+                    const transactionData = {
+                        isDeploy: false,
+                        ...sig,
+                        contractAddress: a.toSend(),
+                        contractTransitionName: `Send`,
+                        data: [
+                            {
+                                type: `ByStr20`,
+                                vname: `to`,
+                                value: __to.toSend(),
+                            },
+                            {
+                                type: `Uint128`,
+                                vname: `amt`,
+                                value: __amt.toSend(),
+                            },
+                        ],
+                        amount: new BN(0).toString(),
+                    };
+                    return {
+                        /**
+                         * get data needed to perform this transaction
+                         * */
+                        toJSON: () => transactionData,
+                        /**
+                         * send the transaction to the blockchain
+                         * */
+                        send: async () =>
+                            dangerousFromJSONCall(txLink)(resolvers)(
+                                transactionData,
+                                gasLimit
+                            ),
+                    };
+                },
+
+                UpdateFeeAddr: (__new: T.ByStr20) => {
+                    const transactionData = {
+                        isDeploy: false,
+                        ...sig,
+                        contractAddress: a.toSend(),
+                        contractTransitionName: `UpdateFeeAddr`,
+                        data: [
+                            {
+                                type: `ByStr20`,
+                                vname: `new`,
+                                value: __new.toSend(),
+                            },
+                        ],
+                        amount: new BN(0).toString(),
+                    };
+                    return {
+                        /**
+                         * get data needed to perform this transaction
+                         * */
+                        toJSON: () => transactionData,
+                        /**
+                         * send the transaction to the blockchain
+                         * */
+                        send: async () =>
+                            dangerousFromJSONCall(txLink)(resolvers)(
+                                transactionData,
+                                gasLimit
+                            ),
+                    };
+                },
+
+                UpdateTicketPrice: (__new: T.Uint128) => {
+                    const transactionData = {
+                        isDeploy: false,
+                        ...sig,
+                        contractAddress: a.toSend(),
+                        contractTransitionName: `UpdateTicketPrice`,
+                        data: [
+                            {
+                                type: `Uint128`,
+                                vname: `new`,
+                                value: __new.toSend(),
+                            },
+                        ],
+                        amount: new BN(0).toString(),
+                    };
+                    return {
+                        /**
+                         * get data needed to perform this transaction
+                         * */
+                        toJSON: () => transactionData,
+                        /**
+                         * send the transaction to the blockchain
+                         * */
+                        send: async () =>
+                            dangerousFromJSONCall(txLink)(resolvers)(
+                                transactionData,
+                                gasLimit
+                            ),
+                    };
+                },
+
+                UpdateFeeCut: (__new: T.Uint128) => {
+                    const transactionData = {
+                        isDeploy: false,
+                        ...sig,
+                        contractAddress: a.toSend(),
+                        contractTransitionName: `UpdateFeeCut`,
+                        data: [
+                            {
+                                type: `Uint128`,
+                                vname: `new`,
+                                value: __new.toSend(),
+                            },
+                        ],
+                        amount: new BN(0).toString(),
+                    };
+                    return {
+                        /**
+                         * get data needed to perform this transaction
+                         * */
+                        toJSON: () => transactionData,
+                        /**
+                         * send the transaction to the blockchain
+                         * */
+                        send: async () =>
+                            dangerousFromJSONCall(txLink)(resolvers)(
+                                transactionData,
+                                gasLimit
+                            ),
+                    };
+                },
+
+                AddFunds: (amount: T.Uint128) => {
+                    const transactionData = {
+                        isDeploy: false,
+                        ...sig,
+                        contractAddress: a.toSend(),
+                        contractTransitionName: `AddFunds`,
+                        data: [],
+                        amount: amount.value.toString(),
+                    };
+                    return {
+                        /**
+                         * get data needed to perform this transaction
+                         * */
+                        toJSON: () => transactionData,
+                        /**
+                         * send the transaction to the blockchain
+                         * */
+                        send: async () =>
+                            dangerousFromJSONCall(txLink)(resolvers)(
+                                transactionData,
+                                gasLimit
+                            ),
+                    };
+                },
+
+                ClaimSpins: (
+                    __target: T.ByStr20,
+                    __spins: T.List<
+                        T.CustomADT<
+                            [T.Uint128, T.Uint128, T.Uint128, T.ByStr64]
+                        >
+                    >
+                ) => {
+                    __spins.setContractAddress(a);
+                    __spins.setADTname("SpinClaim");
+                    const transactionData = {
+                        isDeploy: false,
+                        ...sig,
+                        contractAddress: a.toSend(),
+                        contractTransitionName: `ClaimSpins`,
+                        data: [
+                            {
+                                type: `ByStr20`,
+                                vname: `target`,
+                                value: __target.toSend(),
+                            },
+                            {
+                                type: `List (${a
+                                    .toSend()
+                                    .toLowerCase()}.SpinClaim)`,
+                                vname: `spins`,
+                                value: __spins.toSend(),
+                            },
+                        ],
+                        amount: new BN(0).toString(),
+                    };
+                    return {
+                        /**
+                         * get data needed to perform this transaction
+                         * */
+                        toJSON: () => transactionData,
+                        /**
+                         * send the transaction to the blockchain
+                         * */
+                        send: async () =>
+                            dangerousFromJSONCall(txLink)(resolvers)(
+                                transactionData,
+                                gasLimit
+                            ),
+                    };
+                },
+            };
+        },
+    };
 };
