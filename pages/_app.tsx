@@ -1,3 +1,5 @@
+import { initFirebaseClientSDK } from "../firebase/initClient";
+initFirebaseClientSDK();
 import { Grommet, grommet as grommetTheme, Layer, Box } from "grommet";
 import { deepMerge } from "grommet/utils";
 import { AppProps } from "next/app";
@@ -5,26 +7,6 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { Main } from "../components/Main";
 import { walletManager } from "../state/WalletManager";
-import { notifi } from "../state/Notification";
-import { Para } from "../components/Para";
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyCpDT_KgcPwUUH7xSDRqQmslBw2Y3fbw60",
-    authDomain: "zilmorphs-d6347.firebaseapp.com",
-    projectId: "zilmorphs-d6347",
-    storageBucket: "zilmorphs-d6347.appspot.com",
-    messagingSenderId: "655030386966",
-    appId: "1:655030386966:web:25289a00c17b02794c5037",
-    measurementId: "G-R3JJBHFQM6",
-};
-
 const desc =
     "Zilmorphs is a collection of 8,000 machine learning generated creatures on the Zilliqa blockchain. Zilmorphs were created to celebrate the creation of the Zilliqa bridge.";
 const title = "zilmorphs";
@@ -35,8 +17,6 @@ export default function MyApp({ Component, pageProps }: AppProps): JSX.Element {
         walletManager.updatePrices();
         walletManager.silentConnect();
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
         // analytics.app.automaticDataCollectionEnabled()
     }, []);
     return (

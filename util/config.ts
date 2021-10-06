@@ -32,6 +32,19 @@ export function getNode() {
     return nodes[CUR_NETWORK];
 }
 
+export const noSignerResolvers = {
+    getNetworkName,
+    getVersion,
+    getZil: async (signer) => {
+        if (signer) {
+            const zil = getNoSignerZil();
+            return { zil, teardown: async () => {} };
+        } else {
+            return { zil: getNoSignerZil(), teardown: async () => {} };
+        }
+    },
+};
+
 export function getNoSignerZil() {
     return new Zilliqa(getNode());
 }

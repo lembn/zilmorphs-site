@@ -13,7 +13,7 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
 
     return (
         <Box fill>
-            <Box flex="grow" height={{ max: "100px" }}>
+            <Box height={{ max: "70px" }} flex="grow">
                 <Box
                     pad="medium"
                     justify="around"
@@ -144,7 +144,7 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
                                 pad="small"
                             >
                                 {spinResult.won ? (
-                                    <Para>{`You won total: $${spinResult.win} ZIL. Morph earned: $${spinResult.bonus} ZIL`}</Para>
+                                    <Para>{`You won total: ${spinResult.win} ZIL. Morph earned: ${spinResult.bonus} ZIL`}</Para>
                                 ) : (
                                     <Para>{`No reward! Good luck next time!`}</Para>
                                 )}
