@@ -313,7 +313,18 @@ export default observer(() => {
                             buyerAndClaimer.doc.spinsClaimed >
                             0 && (
                             <>
-                                <Para>{`Claim rewards here:`}</Para>
+                                <Para>{`Claim ${new Big(
+                                    buyerAndClaimer.newestSpins.reduce(
+                                        (prev, cur) => {
+                                            return prev.add(
+                                                new Big(cur.winAmt)
+                                            );
+                                        },
+                                        new Big(0)
+                                    )
+                                )
+                                    .div(new Big(10).pow(12))
+                                    .toFixed(2)}ZIL in rewards here:`}</Para>
                                 <Button
                                     label={"Claim"}
                                     disabled={buyerAndClaimer.sending}
