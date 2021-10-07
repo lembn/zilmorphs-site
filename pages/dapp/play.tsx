@@ -52,7 +52,7 @@ class BuyerAndClaimer {
     sending = false;
     spinning = false;
     spins: number = 1;
-    doc: AddressDoc = { spinsClaimed: 0, spinsExecuted: 0, spinsOwned: 0 };
+    doc: AddressDoc = { spinsClaimed: 9999999, spinsExecuted: 0, spinsOwned: 0 };
     newestSpins: ThresholdJSON[] = [];
 
     get dispSpins() {
