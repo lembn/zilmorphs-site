@@ -1,0 +1,4 @@
+{
+  "contracts": ["./src/SlotMachine/SlotMachine.scilla"],
+  "makeSigners": false
+}

@@ -1,0 +1,33 @@
+{
+  "scripts": {
+    "check": "nodemon",
+    "build": "boost-zil-build",
+    "test:blockchain": "npm run build && mocha -r ts-node/register 'test/**/*blockchain.test.ts' --timeout 1000000",
+    "test:local": "mocha -r ts-node/register 'test/**/*local.test.ts' --timeout 1000000",
+    "test:all": "npm run test:blockchain && npm run test:local"
+  },
+  "dependencies": {
+    "@zilliqa-js/zilliqa": "^3.0.0",
+    "big.js": "^6.1.1",
+    "boost-zil": "^1.0.98",
+    "create-hash": "^1.2.0"
+  },
+  "devDependencies": {
+    "@types/big.js": "^6.1.2",
+    "@types/bn.js": "^4.11.6",
+    "@types/chai": "^4.2.22",
+    "@types/create-hash": "^1.2.2",
+    "@types/long": "^4.0.1",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.4.0",
+    "@types/prettier": "^2.3.2",
+    "chai": "^4.3.4",
+    "dotenv": "^10.0.0",
+    "mocha": "^9.1.2",
+    "nodemon": "^2.0.12",
+    "prettier": "2.3.2",
+    "ts-node": "^10.0.0",
+    "tslib": "^2.3.0",
+    "typescript": "^4.3.5"
+  }
+}
