@@ -1,4 +1,14 @@
-export const morphData = {
+export const morphData: {
+    [key: string]: {
+        name: string;
+        stats: {
+            str: number;
+            agi: number;
+            int: number;
+            special: { desc: string; percentage: number }[];
+        };
+    };
+} = {
     "1": {
         name: "volotcth h",
         stats: {

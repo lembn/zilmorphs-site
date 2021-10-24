@@ -17,6 +17,26 @@ export interface ApiMorph {
     link: string;
 }
 
+export interface Attribute {
+    trait_type: string;
+    value: string;
+    rarity: number;
+}
+
+export type ARKCompatibleMetadata = ApiMorph & {
+    name: string;
+    description: string;
+    // image link
+    image: string;
+    id: string;
+    // no 0x prefix hash
+    hash: string;
+    attributes: Attribute[];
+    zilmorphId: number;
+    bearId: number;
+    minted: boolean;
+};
+
 /**
  * key is number idenityfying the zilmorph
  * stats from 0 to 100
@@ -26,11 +46,4 @@ interface Piece {
     agi: number;
     int: number;
     special: RarityInfo[];
-}
-
-interface AllDict {
-    [k: string]: {
-        name: string;
-        stats: Piece;
-    };
 }
