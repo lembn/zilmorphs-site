@@ -33,11 +33,14 @@ const sellers = [
     addressbook.USDT_SELLER,
 ];
 
-export const usdP = {
-    eth: new Big("2974"),
-    btc: new Big("43155"),
-    usdt: new Big("1"),
-};
+async function getPrice(currency: string): Promise<Big> {
+    const res = await fetch(
+        `https://api.coingecko.com/api/v3/simple/price?ids=${currency}&vs_currencies=usd`
+    );
+
+    const rates = await res.json();
+    return new Big(rates[currency].usd);
+}
 
 class WalletManager {
     unclaimedSpins: number;
@@ -148,6 +151,10 @@ class WalletManager {
         // console.log(btcseller);
         //@ts-expect-error
         const saleOpen = btcseller.sale_active.constructor != "False";
+        const usdP = { eth: new Big(0), btc: new Big(0), usdt: new Big(1) };
+        usdP.eth = await getPrice("ethereum");
+        usdP.btc = await getPrice("bitcoin");
+
         runInAction(() => {
             this.zethPrice = prices[0];
             this.zwbtcPrice = prices[1];
