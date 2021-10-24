@@ -29,11 +29,14 @@ export type ARKCompatibleMetadata = ApiMorph & {
     // image link
     image: string;
     id: string;
-    // no 0x prefix hash
+    // no 0x prefix hex hash
     hash: string;
     attributes: Attribute[];
+    // same as id
     zilmorphId: number;
+    // same as id
     bearId: number;
+    // true 
     minted: boolean;
 };
 

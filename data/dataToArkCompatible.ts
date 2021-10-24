@@ -9,6 +9,10 @@ function getFraction(num: number, precision = 3) {
     return parseFloat((num / 100).toFixed(precision));
 }
 
+function getStat(num: number) {
+    return parseFloat((1 - getFraction(num)).toFixed(3));
+}
+
 const matchStatTrait = /(Genius)|(Dumb)|(Tank)|(Weakling)|(Sluggish)|(Swift)/;
 const matchRest = /(Simple)|(Crystal)/;
 
@@ -69,17 +73,17 @@ const attributes = Object.fromEntries(
             },
             {
                 trait_type: "Strength",
-                rarity: getFraction(stats.str),
+                rarity: getStat(stats.str),
                 value: `${stats.str}`,
             },
             {
                 trait_type: "Agility",
-                rarity: getFraction(stats.agi),
+                rarity: getStat(stats.agi),
                 value: `${stats.agi}`,
             },
             {
                 trait_type: "Intelligence",
-                rarity: getFraction(stats.int),
+                rarity: getStat(stats.int),
                 value: `${stats.int}`,
             },
             ...specials,
