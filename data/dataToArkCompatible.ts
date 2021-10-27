@@ -41,14 +41,18 @@ const attributes = Object.fromEntries(
         const specials = stats.special.map((s) => {
             const statTrait = s.desc.match(matchStatTrait);
             if (statTrait) {
-                const trait_type = statTrait[0];
-                if (typeof trait_type == "undefined") {
+                const value = statTrait[0];
+                if (typeof value == "undefined") {
                     throw new Error("err" + statTrait);
                 }
-                const toCutOff = `${trait_type}. `;
-                const value = s.desc.substr(toCutOff.length);
+                const toCutOff = `${value}. `;
                 const attr: Attribute = {
-                    trait_type: trait_type,
+                    trait_type:
+                        value == "Genius" || value == "Dumb"
+                            ? "Intelligence"
+                            : value == "Tank" || value == "Weakling"
+                            ? "Strength"
+                            : "Agility",
                     rarity: getFraction(s.percentage),
                     value,
                 };
