@@ -35,6 +35,39 @@ const matchRest = /(Simple)|(Crystal)/;
 //     "percentage": 0.675
 // }
 
+// const traitTypeToValue = {
+//     Intelligence: {
+//         top: "Genius",
+//         avg: "Average",
+//         bottom: "Dumb",
+//     },
+//     Strength: { top: "Tank", avg: "Average", bottom: "Weakling" },
+//     Agility: { top: "Swift", avg: "Average", bottom: "Sluggish" },
+// };
+
+/**
+ * 0 to 0.25
+ * < 5 I
+ * < 15 II
+ * < 25 III
+ */
+function getTier(rarity: number) {
+    if (rarity < 0.05) {
+        return "I";
+    }
+    if (rarity < 0.15) {
+        return "II";
+    }
+    if (rarity <= 0.25) {
+        return "III";
+    }
+    throw new Error("oops" + rarity);
+}
+
+function getTierOfAbility(stat: number) {
+    return Math.round((stat - (stat % 10)) / 10) + 1;
+}
+
 const attributes = Object.fromEntries(
     Object.entries(morphData).map(([id, data]) => {
         const stats = data.stats;
@@ -45,16 +78,17 @@ const attributes = Object.fromEntries(
                 if (typeof value == "undefined") {
                     throw new Error("err" + statTrait);
                 }
-                const toCutOff = `${value}. `;
+                const trait_type =
+                    value == "Genius" || value == "Dumb"
+                        ? "Intelligence"
+                        : value == "Tank" || value == "Weakling"
+                        ? "Strength"
+                        : "Agility";
+                const rarity = getFraction(s.percentage);
                 const attr: Attribute = {
-                    trait_type:
-                        value == "Genius" || value == "Dumb"
-                            ? "Intelligence"
-                            : value == "Tank" || value == "Weakling"
-                            ? "Strength"
-                            : "Agility",
-                    rarity: getFraction(s.percentage),
-                    value,
+                    trait_type,
+                    rarity,
+                    value: value + " " + getTier(rarity),
                 };
                 return attr;
             }
@@ -78,17 +112,17 @@ const attributes = Object.fromEntries(
             {
                 trait_type: "Strength",
                 rarity: getStat(stats.str),
-                value: `${stats.str}`,
+                value: `Str ${getTierOfAbility(stats.str)}`,
             },
             {
                 trait_type: "Agility",
                 rarity: getStat(stats.agi),
-                value: `${stats.agi}`,
+                value: `Agi ${getTierOfAbility(stats.agi)}`,
             },
             {
                 trait_type: "Intelligence",
                 rarity: getStat(stats.int),
-                value: `${stats.int}`,
+                value: `Int ${getTierOfAbility(stats.int)}`,
             },
             ...specials,
         ];
