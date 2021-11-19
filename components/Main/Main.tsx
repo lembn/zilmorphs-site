@@ -6,7 +6,7 @@ import { But } from "../But";
 import { notifi, spinResult } from "../../state/Notification";
 import { Para } from "../Para";
 import { Footer } from "./Footer";
-import spin from "../../pages/api/spin";
+import { FaBars } from "react-icons/fa";
 
 export const Main = observer(({ children }: { children: JSX.Element }) => {
     const router = useRouter();
@@ -15,12 +15,19 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
         <Box fill>
             <Box height={{ max: "70px" }} flex="grow">
                 <Box
-                    pad="medium"
                     justify="around"
                     direction="row"
                     gap="large"
                     flex="grow"
+                    margin="medium"
                 >
+                    <Button
+                        onMouseEnter={() => {
+                            //Fade animation
+                        }}
+                    >
+                        <FaBars size={28} />
+                    </Button>
                     <Box direction="row" gap="large">
                         <But
                             label={"zilmorphs"}
@@ -155,15 +162,6 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
             </Box>
             {children}
             <Footer />
-            {/* <Canvas
-                style={{
-                    position: "absolute",
-                    top: "0px",
-                    pointerEvents: "none",
-                }}
-            >
-                <Scene top={top} mouse={mouse} />
-            </Canvas> */}
         </Box>
     );
 });
