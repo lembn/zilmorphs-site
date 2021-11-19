@@ -17,26 +17,15 @@ function BNtoDisp(b: BN, decimals: number, precision = 6): string {
 
 function BNtoUSDprice(b: BN, usdP: Big, decimals: number, precision = 3) {
     const base = new Big(b.toString()).div(new Big(10).pow(decimals));
-    console.log(usdP.toNumber(), base);
     return base.mul(usdP).toFixed(precision);
 }
 
-const tokens = [
-    addressbook.ethTOKEN,
-    addressbook.btcTOKEN,
-    addressbook.usdTOKEN,
-];
+const tokens = [addressbook.ethTOKEN, addressbook.btcTOKEN, addressbook.usdTOKEN];
 
-const sellers = [
-    addressbook.ETH_SELLER,
-    addressbook.BTC_SELLER,
-    addressbook.USDT_SELLER,
-];
+const sellers = [addressbook.ETH_SELLER, addressbook.BTC_SELLER, addressbook.USDT_SELLER];
 
 async function getPrice(currency: string): Promise<Big> {
-    const res = await fetch(
-        `https://api.coingecko.com/api/v3/simple/price?ids=${currency}&vs_currencies=usd`
-    );
+    const res = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${currency}&vs_currencies=usd`);
 
     const rates = await res.json();
     return new Big(rates[currency].usd);
@@ -171,9 +160,7 @@ class WalletManager {
     }
     async update() {
         if (this.thereIsZilPay() && this.getZilPay().wallet.defaultAccount) {
-            const addr = normaliseAddress(
-                this.getZilPay().wallet.defaultAccount.base16
-            ).toLowerCase();
+            const addr = normaliseAddress(this.getZilPay().wallet.defaultAccount.base16).toLowerCase();
             if (addr) {
                 //@ts-expect-error
                 const states = await partialState(async () => getNoSignerZil())(
@@ -203,9 +190,7 @@ class WalletManager {
                     balances: { [k: string]: undefined | string };
                 }[];
                 const processed = stat.map((s) =>
-                    typeof s.balances[addr] == "undefined"
-                        ? new BN(0)
-                        : new BN(s.balances[addr])
+                    typeof s.balances[addr] == "undefined" ? new BN(0) : new BN(s.balances[addr])
                 );
                 // console.log(processed);
                 // the owners of token
@@ -220,9 +205,7 @@ class WalletManager {
                     players_spins: { [k: string]: string };
                 };
 
-                const claimed = parseInt(
-                    slotMachine.players_claimed[addr] || "0"
-                );
+                const claimed = parseInt(slotMachine.players_claimed[addr] || "0");
                 const spins = parseInt(slotMachine.players_spins[addr] || "0");
 
                 const unclaimed = spins - claimed;

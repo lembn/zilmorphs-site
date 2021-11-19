@@ -34,15 +34,14 @@ export const Main = observer(({ children }: { children: JSX.Element }) => {
         <Box fill>
             <Box height={{ max: "70px" }} flex="grow">
                 <Box
-                    justify="around"
+                    justify="between"
                     direction="row"
                     gap="large"
-                    flex="grow"
                     margin="medium"
                     onMouseEnter={() => setExpand(true)}
                     onMouseLeave={() => setExpand(false)}
                 >
-                    <Button>
+                    <Button onClick={() => setExpand(!expand)}>
                         <FaBars size={32} />
                     </Button>
 
