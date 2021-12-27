@@ -1,24 +1,20 @@
 import { Box } from "grommet";
 import Footer from "./Footer";
-import Header from "./Header";
-import ContentContainer from "./ContentContainer";
+import { Header, HeaderExpand } from "./Header";
 import Global from "../Global";
-import { useState } from "react";
-import { useSpring } from "@react-spring/web";
+import { observer } from "mobx-react-lite";
+import ContentContainer from "./ContentContainer";
 
-export default function Main({ children }: { children: any }) {
-    const [showChildren, setShowChildren] = useState(true);
-    const childrenFade = useSpring({ opacity: showChildren ? 1 : 0 });
+const expand = new HeaderExpand();
 
+export default observer(({ children }: { children: any }) => {
     return (
         <Global>
             <Box fill>
-                <Header showChildren={setShowChildren} />
-                <ContentContainer styles={childrenFade} showChildren={showChildren}>
-                    {children}
-                </ContentContainer>
+                <Header expand={expand} />
+                <ContentContainer expand={expand}>{children}</ContentContainer>
                 <Footer />
             </Box>
         </Global>
     );
-}
+});

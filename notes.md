@@ -93,11 +93,11 @@ Rewards could be seeds, seed pair, morphs, morph pairs? And always XP.
 
 # TODO
 
--   What does observer do again?
--   Checkout responsiveness on all pages and make sure it looks good
--   Check whats going on with the stuff at the bottom of the `Main` component
-    -   `{notifi.visible` ...
-    -   `{spinResult.visible` ...
+-   Why does random morph have to be in useeffect in `index.tsx`
+-   Investigate pages/api
+-   Whats \_app and \_document
+-   Why is press not in dapp/
+-   How is it a dapp
 -   Investigate spinner gas (_"improving the slot machine contract so claiming prizes takes constant gas cost"_)
 
 ## MB Tasks

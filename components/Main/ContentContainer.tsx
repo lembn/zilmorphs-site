@@ -1,29 +1,22 @@
+import { useSpring } from "@react-spring/web";
 import { ResponsiveContext } from "grommet";
-import { ABox } from "./Animated";
+import { observer } from "mobx-react-lite";
 import { useContext } from "react";
+import { ABox } from "./Animated";
+import { HeaderExpand } from "./Header";
 
 /*
-This component was created to wrap the `children` elements of the Main component.
-
-IT ONLY EXISTS because the the value of `ResponsiveContext` needs to be read (to set the
-value of `fill` on the ABox) but if `ResponsiveContext` is imported in the same file as
-the `Global` component, the value of the context is undefined, so this component was created
-to move the import of the context into a seperate file.
+This component was created because i coudln't find a way to get the ResponsiveContext
+to work from the `Main.tsx` file, so i moved the code that requried the context information
+into a new component, in a seperate file
 */
-
-export default function ContentContainer({
-    children,
-    styles,
-    showChildren,
-}: {
-    children: JSX.Element;
-    styles: any;
-    showChildren: boolean;
-}) {
+export default observer(({ children, expand }: { children: JSX.Element; expand: HeaderExpand }) => {
     const bpSize = useContext(ResponsiveContext);
+    const styles = useSpring({ opacity: expand.value && bpSize == "small" ? 0 : 1 });
+
     return (
         <ABox fill={bpSize == "small"} overflow="auto" style={styles}>
-            {showChildren ? children : ""}
+            {expand.value && bpSize == "small" ? "" : children}
         </ABox>
     );
-}
+});

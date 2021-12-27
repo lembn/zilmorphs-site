@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
-import { Box, Heading } from "grommet";
+import { Box, Heading, ResponsiveContext } from "grommet";
 import { ApiMorph } from "../../data/interfaces";
 import { makeAutoObservable, runInAction } from "mobx";
 import { Card } from "../../components/Card";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { Para } from "../../components/Para";
 import { Btn } from "../../components/Btn";
 
@@ -57,11 +57,19 @@ export default observer(() => {
     useEffect(() => {
         disp.random();
     }, []);
+    const bpSize = useContext(ResponsiveContext);
 
     return (
         <>
-            <Box direction="row" flex="grow" justify="center" pad="small" align="center" gap="large">
-                <Box align="center" width={{ max: "350px" }} flex="grow">
+            <Box
+                direction={bpSize == "small" ? "column" : "row"}
+                flex="grow"
+                justify="center"
+                pad="small"
+                align="center"
+                gap={bpSize == "small" ? "small" : "large"}
+            >
+                <Box align="center" width={{ max: "350px" }} margin={{ bottom: "large" }}>
                     <Heading level="2">Zilmorphs</Heading>
                     <Para>
                         Zilmorphs is a collection of 8,000 machine learning generated creatures on the Zilliqa
@@ -71,9 +79,7 @@ export default observer(() => {
                         Zilmorphs were created to celebrate the creation of the Zilliqa bridge and can only be bought
                         with Zilliqa bridge assets.
                     </Para>
-                    <Box align="center" flex="grow">
-                        <Btn label={"Random morph"} onClick={() => disp.random()} />
-                    </Box>
+                    <Btn label={"Random morph"} onClick={() => disp.random()} />
                 </Box>
 
                 <Card morph={disp.morph} />
