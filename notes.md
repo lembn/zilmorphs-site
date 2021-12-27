@@ -93,6 +93,7 @@ Rewards could be seeds, seed pair, morphs, morph pairs? And always XP.
 
 # TODO
 
+-   What does observer do again?
 -   Checkout responsiveness on all pages and make sure it looks good
 -   Check whats going on with the stuff at the bottom of the `Main` component
     -   `{notifi.visible` ...

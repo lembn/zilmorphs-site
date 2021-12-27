@@ -2,7 +2,6 @@ import { Box } from "grommet";
 import { Card } from "../components/Card";
 import { Heading } from "grommet";
 import { Para } from "../components/Para";
-import { Btn } from "../components/Btn";
 import { observer } from "mobx-react-lite";
 import { DispMultiple } from "../state/DispMultiple";
 import { useEffect } from "react";

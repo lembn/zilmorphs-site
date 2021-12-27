@@ -1,15 +1,13 @@
 import { observer } from "mobx-react-lite";
-import { Box, Heading, ResponsiveContext, Layer, TextInput, Button, Anchor } from "grommet";
+import { Box, Heading, ResponsiveContext, Layer, TextInput, Button } from "grommet";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { walletManager, tokenSdk } from "../../state/WalletManager";
 import { makeAutoObservable, runInAction } from "mobx";
 import Big from "big.js";
 import { ByStr20, Uint128 } from "boost-zil";
-import { Long, BN } from "@zilliqa-js/zilliqa";
+import { Long } from "@zilliqa-js/zilliqa";
 import { Para } from "../../components/Para";
-import { Btn } from "../../components/Btn";
-import { Footer } from "../../components/Main/Footer";
 import { notifi } from "../../state/Notification";
 
 class Buyer {

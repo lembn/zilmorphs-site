@@ -1,13 +1,5 @@
 import { observer } from "mobx-react-lite";
-import {
-    Box,
-    Heading,
-    Button,
-    ResponsiveContext,
-    Layer,
-    TextInput,
-    Anchor,
-} from "grommet";
+import { Box, Heading, Button, ResponsiveContext, TextInput, Anchor } from "grommet";
 import { Medium } from "grommet-icons";
 import { Para } from "../../components/Para";
 import { useContext, useEffect } from "react";
@@ -17,33 +9,18 @@ import { multiple } from "../../state/DispMultiple";
 import { makeAutoObservable, runInAction } from "mobx";
 import { Long } from "@zilliqa-js/zilliqa";
 import { addressbook } from "../../data/addressbook";
-import { notifi, spinResult } from "../../state/Notification";
+import { notifi } from "../../state/Notification";
 import { ByStr20, Uint128 } from "boost-zil";
-import { getPower } from "../../state/shared";
 import { AddressDoc } from "../../interfaces";
 import Big from "big.js";
-import {
-    onSnapshot,
-    getFirestore,
-    collection,
-    doc,
-    orderBy,
-    query,
-    limit,
-    where,
-} from "@firebase/firestore";
+import { onSnapshot, getFirestore, collection, doc, orderBy, query, where } from "@firebase/firestore";
 import { getApp } from "firebase/app";
 import { ThresholdJSON } from "../../bind/SlotMachineSpinner";
 
 function spinToText(s: ThresholdJSON) {
     const base = `Spin #${s.spinNum} `;
     if (s.winAmt != "0") {
-        return (
-            base +
-            `🤑 Won: ${new Big(s.winAmt)
-                .div(new Big(10).pow(12))
-                .toFixed(2)} ZIL`
-        );
+        return base + `🤑 Won: ${new Big(s.winAmt).div(new Big(10).pow(12)).toFixed(2)} ZIL`;
     }
     return base + `👻 nothing :(`;
 }
@@ -113,10 +90,7 @@ class BuyerAndClaimer {
             if (res.status == 401) {
                 throw new Error(data.message);
             }
-            const result = await slotMachineSdk.dangerousFromJSONCall(
-                data.tx,
-                Long.fromString("60000")
-            );
+            const result = await slotMachineSdk.dangerousFromJSONCall(data.tx, Long.fromString("60000"));
             notifi.show(
                 "Transaction sent!",
                 "black",
@@ -188,10 +162,7 @@ class BuyerAndClaimer {
         try {
             const app = getApp();
             const firestore = getFirestore(app);
-            const docs = collection(
-                firestore,
-                `/addr/${new ByStr20(walletManager.addr).lowerCase()}/docs`
-            );
+            const docs = collection(firestore, `/addr/${new ByStr20(walletManager.addr).lowerCase()}/docs`);
             const status = doc(firestore, docs.path + "/status");
             const unsub1 = onSnapshot(status, (snap) => {
                 runInAction(() => {
@@ -199,15 +170,9 @@ class BuyerAndClaimer {
                 });
             });
             const unsub2 = onSnapshot(
-                query(
-                    docs,
-                    orderBy("spinNum", "desc"),
-                    where("spinNum", ">", this.doc.spinsClaimed)
-                ),
+                query(docs, orderBy("spinNum", "desc"), where("spinNum", ">", this.doc.spinsClaimed)),
                 (snaps) => {
-                    this.newestSpins = snaps.docs.map((d) =>
-                        d.data()
-                    ) as ThresholdJSON[];
+                    this.newestSpins = snaps.docs.map((d) => d.data()) as ThresholdJSON[];
                 }
             );
             return () => {
@@ -245,12 +210,7 @@ export default observer(() => {
                     justify="center"
                     width={{ max: "550px" }}
                 >
-                    <Box
-                        flex="grow"
-                        align="center"
-                        width={{ max: "300px" }}
-                        fill="horizontal"
-                    >
+                    <Box flex="grow" align="center" width={{ max: "300px" }} fill="horizontal">
                         <Heading level="2">Past spins:</Heading>
                         <Box
                             align="start"
@@ -263,16 +223,11 @@ export default observer(() => {
                             round="small"
                         >
                             {buyerAndClaimer.newestSpins.length == 0 && (
-                                <Para>
-                                    🤯 Here you will see your unclaimed spin
-                                    history! 🤯
-                                </Para>
+                                <Para>🤯 Here you will see your unclaimed spin history! 🤯</Para>
                             )}
                             {buyerAndClaimer.newestSpins.length != 0 &&
                                 buyerAndClaimer.newestSpins.map((s) => (
-                                    <Para key={s.spinNum + "spin"}>
-                                        {spinToText(s)}
-                                    </Para>
+                                    <Para key={s.spinNum + "spin"}>{spinToText(s)}</Para>
                                 ))}
                             {/* <Heading level="2">Morphsino</Heading>
                                 <Para>
@@ -301,27 +256,19 @@ export default observer(() => {
                                 </Para> */}
                         </Box>
                         <Para>{`Available spins ${
-                            buyerAndClaimer.doc.spinsOwned -
-                            buyerAndClaimer.doc.spinsExecuted
+                            buyerAndClaimer.doc.spinsOwned - buyerAndClaimer.doc.spinsExecuted
                         }`}</Para>
                         <Button
                             label={"Spin"}
                             disabled={buyerAndClaimer.sending}
                             onClick={() => buyerAndClaimer.spin()}
                         />
-                        {buyerAndClaimer.doc.spinsExecuted -
-                            buyerAndClaimer.doc.spinsClaimed >
-                            0 && (
+                        {buyerAndClaimer.doc.spinsExecuted - buyerAndClaimer.doc.spinsClaimed > 0 && (
                             <>
                                 <Para>{`Claim ${new Big(
-                                    buyerAndClaimer.newestSpins.reduce(
-                                        (prev, cur) => {
-                                            return prev.add(
-                                                new Big(cur.winAmt)
-                                            );
-                                        },
-                                        new Big(0)
-                                    )
+                                    buyerAndClaimer.newestSpins.reduce((prev, cur) => {
+                                        return prev.add(new Big(cur.winAmt));
+                                    }, new Big(0))
                                 )
                                     .div(new Big(10).pow(12))
                                     .toFixed(2)}ZIL in rewards here:`}</Para>
@@ -344,12 +291,7 @@ export default observer(() => {
                 </Box>
                 <Box align="center">
                     <Para>{`Buy spins here:`}</Para>
-                    <Box
-                        direction="row"
-                        justify="center"
-                        align="center"
-                        gap="medium"
-                    >
+                    <Box direction="row" justify="center" align="center" gap="medium">
                         <Button
                             label={"buy"}
                             size="small"
@@ -361,18 +303,14 @@ export default observer(() => {
                             size="small"
                             value={buyerAndClaimer.spins}
                             type={"number"}
-                            onChange={(e) =>
-                                buyerAndClaimer.setSpins(e.target.value)
-                            }
+                            onChange={(e) => buyerAndClaimer.setSpins(e.target.value)}
                         />
                     </Box>
                 </Box>
                 <Anchor
                     icon={<Medium />}
                     label="Read more in this blog"
-                    href={
-                        "https://medium.com/@msz.bednarski/zilmorphs-morphsino-7ffcaf0c6a61"
-                    }
+                    href={"https://medium.com/@msz.bednarski/zilmorphs-morphsino-7ffcaf0c6a61"}
                 />
             </Box>
         </>

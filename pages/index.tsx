@@ -2,13 +2,7 @@
 import { observer } from "mobx-react-lite";
 import { Box, Button } from "grommet";
 import { useRouter } from "next/router";
-import {
-    useSpring,
-    a,
-    AnimatedComponent,
-    SpringValue,
-    to,
-} from "@react-spring/three";
+import { useSpring, a, SpringValue, to } from "@react-spring/three";
 import { useCallback, useMemo, useRef, FC, useEffect, useState } from "react";
 import { useThree, Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
@@ -61,23 +55,14 @@ function Stars({ position }) {
 
         const coords = new Array(1000)
             .fill(0)
-            .map((i) => [
-                Math.random() * 800 - 400,
-                Math.random() * 800 - 400,
-                Math.random() * 800 - 400,
-            ]);
+            .map((i) => [Math.random() * 800 - 400, Math.random() * 800 - 400, Math.random() * 800 - 400]);
         return [geo, mat, coords];
     }, []);
 
     return (
         <a.group ref={group} position={position}>
             {coords.map(([p1, p2, p3], i) => (
-                <mesh
-                    key={i}
-                    geometry={geo}
-                    material={mat}
-                    position={[p1, p2, p3]}
-                />
+                <mesh key={i} geometry={geo} material={mat} position={[p1, p2, p3]} />
             ))}
         </a.group>
     );
@@ -99,11 +84,7 @@ function Image({ url, opacity, scale, ...props }) {
             scale={factor.interpolate((f) => [scale * f, scale * f, 1])}
         >
             <planeBufferGeometry attach="geometry" args={[5, 5]} />
-            <a.meshLambertMaterial
-                attach="material"
-                transparent
-                opacity={opacity}
-            >
+            <a.meshLambertMaterial attach="material" transparent opacity={opacity}>
                 <primitive attach="map" object={texture} />
             </a.meshLambertMaterial>
         </a.mesh>
@@ -120,9 +101,7 @@ function Images({ top, mouse, scrollMax }) {
             opacity={top.to([0, 500], [0.5, 1])}
             position={to([top, mouse], (top, mouse) => [
                 (-mouse[0] * factor) / 50000 + x,
-                (mouse[1] * factor) / 50000 +
-                    y * 1 +
-                    ((top * factor) / scrollMax) * 2,
+                (mouse[1] * factor) / 50000 + y * 1 + ((top * factor) / scrollMax) * 2,
                 z + top / 2000,
             ])}
         />
@@ -130,75 +109,34 @@ function Images({ top, mouse, scrollMax }) {
 }
 
 /** This component maintains the scene */
-function Scene({
-    top,
-    mouse,
-}: {
-    top: SpringValue<number>;
-    mouse: SpringValue<number[]>;
-}) {
+function Scene({ top, mouse }: { top: SpringValue<number>; mouse: SpringValue<number[]> }) {
     const { size } = useThree();
     const scrollMax = size.height * 4.5;
 
     return (
         <>
-            <a.spotLight
-                intensity={1.3}
-                color="white"
-                position={mouse.to((x, y) => [x / 100, -y / 100, 6.5])}
-            />
+            <a.spotLight intensity={1.3} color="white" position={mouse.to((x, y) => [x / 100, -y / 100, 6.5])} />
             <Background color={"#ffffff"} />
             <Stars position={top.to((top) => [0, -1 + top / 20, 0])} />
             {/* @ts-expect-error */}
             <Images top={top} mouse={mouse} scrollMax={scrollMax} />
-            <Text
-                opacity={top.to([0, 200], [1, 0])}
-                position={top.to((top) => [0, -1 + top / 200, 0])}
-            >
+            <Text opacity={top.to([0, 200], [1, 0])} position={top.to((top) => [0, -1 + top / 200, 0])}>
                 zilmorphs
             </Text>
             {/* @ts-expect-error */}
-            <Text
-                position={top.to((top) => [
-                    0,
-                    -20 + ((top * 10) / scrollMax) * 2.11,
-                    0,
-                ])}
-                fontSize={50}
-            >
+            <Text position={top.to((top) => [0, -20 + ((top * 10) / scrollMax) * 2.11, 0])} fontSize={50}>
                 Zilliqa bridge
             </Text>
             {/* @ts-expect-error */}
-            <Text
-                position={top.to((top) => [
-                    0,
-                    -20 + ((top * 10) / scrollMax) * 2.04,
-                    0,
-                ])}
-                fontSize={50}
-            >
+            <Text position={top.to((top) => [0, -20 + ((top * 10) / scrollMax) * 2.04, 0])} fontSize={50}>
                 created a disturbance
             </Text>
             {/* @ts-expect-error */}
-            <Text
-                position={top.to((top) => [
-                    0,
-                    -20 + ((top * 10) / scrollMax) * 1.97,
-                    0,
-                ])}
-                fontSize={50}
-            >
+            <Text position={top.to((top) => [0, -20 + ((top * 10) / scrollMax) * 1.97, 0])} fontSize={50}>
                 the unispheres have collided
             </Text>
             {/* @ts-expect-error */}
-            <Text
-                position={top.to((top) => [
-                    0,
-                    -20 + ((top * 10) / scrollMax) * 1.9,
-                    0,
-                ])}
-                fontSize={50}
-            >
+            <Text position={top.to((top) => [0, -20 + ((top * 10) / scrollMax) * 1.9, 0])} fontSize={50}>
                 8000 zilmorphs have arrived
             </Text>
         </>
@@ -206,21 +144,13 @@ function Scene({
 }
 
 /** This renders text via canvas and projects it as a sprite */
-function Text({
-    children,
-    position,
-    opacity,
-    color = "black",
-    fontSize = 200,
-    bold = "bold",
-}) {
+function Text({ children, position, opacity, color = "black", fontSize = 200, bold = "bold" }) {
     const {
         size: { width, height },
         viewport: { width: viewportWidth, height: viewportHeight },
     } = useThree();
     const [text, setText] = useState(children);
-    const scale =
-        viewportWidth > viewportHeight ? viewportWidth : viewportHeight;
+    const scale = viewportWidth > viewportHeight ? viewportWidth : viewportHeight;
     const canvas = useMemo(() => {
         const canvas = document.createElement("canvas");
         canvas.width = canvas.height = 2048;
@@ -234,11 +164,7 @@ function Text({
     }, [text, width, height]);
 
     return (
-        <a.sprite
-            scale={[scale, scale, 1]}
-            position={position}
-            onClick={() => console.log("asfe")}
-        >
+        <a.sprite scale={[scale, scale, 1]} position={position} onClick={() => console.log("asfe")}>
             <a.spriteMaterial attach="material" transparent opacity={opacity}>
                 <canvasTexture
                     onClick={() => {
