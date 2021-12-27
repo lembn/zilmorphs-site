@@ -1,13 +1,5 @@
 import { observer } from "mobx-react-lite";
-import {
-    Box,
-    Heading,
-    ResponsiveContext,
-    Layer,
-    TextInput,
-    Button,
-    Anchor,
-} from "grommet";
+import { Box, Heading, ResponsiveContext, Layer, TextInput, Button, Anchor } from "grommet";
 import { useRouter } from "next/router";
 import { useContext, useEffect } from "react";
 import { walletManager, tokenSdk } from "../../state/WalletManager";
@@ -16,7 +8,7 @@ import Big from "big.js";
 import { ByStr20, Uint128 } from "boost-zil";
 import { Long, BN } from "@zilliqa-js/zilliqa";
 import { Para } from "../../components/Para";
-import { But } from "../../components/But";
+import { Btn } from "../../components/Btn";
 import { Footer } from "../../components/Main/Footer";
 import { notifi } from "../../state/Notification";
 
@@ -57,15 +49,8 @@ class Buyer {
             runInAction(() => {
                 this.sending = true;
             });
-            const amt = new Uint128(
-                new Big(this.value)
-                    .mul(new Big(10).pow(data.decimals))
-                    .toFixed(0)
-            );
-            const result = await tokenSdk
-                .calls(data.token)(Long.fromString("40000"))
-                .Transfer(data.seller, amt)
-                .send();
+            const amt = new Uint128(new Big(this.value).mul(new Big(10).pow(data.decimals)).toFixed(0));
+            const result = await tokenSdk.calls(data.token)(Long.fromString("40000")).Transfer(data.seller, amt).send();
             notifi.show(
                 "Transaction sent!",
                 "black",
@@ -102,12 +87,7 @@ export default observer(() => {
                 pad="small"
             >
                 {buyer.show && (
-                    <Layer
-                        onEsc={() => buyer.hide()}
-                        onClickOutside={() => buyer.hide()}
-                        responsive={false}
-                        plain
-                    >
+                    <Layer onEsc={() => buyer.hide()} onClickOutside={() => buyer.hide()} responsive={false} plain>
                         <Box
                             alignSelf="center"
                             justify="center"
@@ -121,24 +101,16 @@ export default observer(() => {
                         >
                             <Box>
                                 <Heading level="2">{`Buy with ${buyer.type}`}</Heading>
+                                <Para>{`You have ${walletManager.typeToBalance(buyer.type)} ${buyer.type}`}</Para>
                                 <Para>
-                                    {`You have ${walletManager.typeToBalance(
-                                        buyer.type
-                                    )} ${buyer.type}`}
-                                </Para>
-                                <Para>
-                                    {`Current price is: ${walletManager.typeToPrice(
-                                        buyer.type
-                                    )} ${buyer.type}`}
+                                    {`Current price is: ${walletManager.typeToPrice(buyer.type)} ${buyer.type}`}
                                 </Para>
                                 <Box>
                                     <TextInput
                                         textAlign="end"
                                         value={buyer.dispVal}
                                         type={"number"}
-                                        onChange={(e) =>
-                                            buyer.setVal(e.target.value)
-                                        }
+                                        onChange={(e) => buyer.setVal(e.target.value)}
                                     />
                                 </Box>
                             </Box>
@@ -150,11 +122,7 @@ export default observer(() => {
                                     fontSize: "1.1em",
                                     fontWeight: "bold",
                                 }}
-                                onClick={() =>
-                                    buyer.send(
-                                        walletManager.typeToAddress(buyer.type)
-                                    )
-                                }
+                                onClick={() => buyer.send(walletManager.typeToAddress(buyer.type))}
                             />
                         </Box>
                     </Layer>
@@ -162,44 +130,26 @@ export default observer(() => {
                 <Box align="center" width={{ max: "350px" }} flex="grow">
                     <Heading level="2">Get Zilmorphs</Heading>
                     <Para>
-                        Zilmorphs are creatures from a different universe that
-                        got here with the Zilliqa bridge! You can ONLY get
-                        zilmorphs with Zilliqa bridge assets: zETH, zWBTC,
-                        zUSDT.
+                        Zilmorphs are creatures from a different universe that got here with the Zilliqa bridge! You can
+                        ONLY get zilmorphs with Zilliqa bridge assets: zETH, zWBTC, zUSDT.
                     </Para>
                     <Para>
-                        Each next zilmorph sold increases the price of the next
-                        by ~1 USD worth of the bridge assets. That means that
-                        the first zilmorph costs ~$1 but the last may cost even
-                        8000$!
+                        Each next zilmorph sold increases the price of the next by ~1 USD worth of the bridge assets.
+                        That means that the first zilmorph costs ~$1 but the last may cost even 8000$!
                     </Para>
                     <Para>
-                        If there is a lot of transactions at the same time and
-                        you are worried that somebody might snatch a zilmorph at
-                        your current price you may send more to the contract,
-                        you will be refunded for any overpay!
+                        If there is a lot of transactions at the same time and you are worried that somebody might
+                        snatch a zilmorph at your current price you may send more to the contract, you will be refunded
+                        for any overpay!
                     </Para>
                 </Box>
-                <Box
-                    flex="grow"
-                    pad="small"
-                    gap="medium"
-                    align="center"
-                    width={{ max: "550px" }}
-                >
-                    <Heading level="2">
-                        {walletManager.saleOpen ? "Sale open" : "Sale closed"}
-                    </Heading>
+                <Box flex="grow" pad="small" gap="medium" align="center" width={{ max: "550px" }}>
+                    <Heading level="2">{walletManager.saleOpen ? "Sale open" : "Sale closed"}</Heading>
                     <Box direction="row" gap="medium">
                         <Button
                             label={"buy with zETH"}
                             size="small"
-                            onClick={() =>
-                                buyer.showUI(
-                                    "zETH",
-                                    walletManager.typeToPrice("zETH")
-                                )
-                            }
+                            onClick={() => buyer.showUI("zETH", walletManager.typeToPrice("zETH"))}
                         />
                         <Para>{`Current price: ${walletManager.zethP} zETH ~$${walletManager.inUSDETH}`}</Para>
                     </Box>
@@ -207,31 +157,17 @@ export default observer(() => {
                         <Button
                             label={"buy with zWBTC"}
                             size="small"
-                            onClick={() =>
-                                buyer.showUI(
-                                    "zWBTC",
-                                    walletManager.typeToPrice("zWBTC")
-                                )
-                            }
+                            onClick={() => buyer.showUI("zWBTC", walletManager.typeToPrice("zWBTC"))}
                         />
-                        <Para>
-                            {`Current price: ${walletManager.zwbtcP} zWBTC ~$${walletManager.inUSDBTC}`}
-                        </Para>
+                        <Para>{`Current price: ${walletManager.zwbtcP} zWBTC ~$${walletManager.inUSDBTC}`}</Para>
                     </Box>
                     <Box direction="row" gap="medium">
                         <Button
                             label={"buy with zUSDT"}
                             size="small"
-                            onClick={() =>
-                                buyer.showUI(
-                                    "zUSDT",
-                                    walletManager.typeToPrice("zUSDT")
-                                )
-                            }
+                            onClick={() => buyer.showUI("zUSDT", walletManager.typeToPrice("zUSDT"))}
                         />
-                        <Para>
-                            {`Current price: ${walletManager.zusdtP} zUSDT ~$${walletManager.inUSDUSD}`}
-                        </Para>
+                        <Para>{`Current price: ${walletManager.zusdtP} zUSDT ~$${walletManager.inUSDUSD}`}</Para>
                     </Box>
                 </Box>
             </Box>

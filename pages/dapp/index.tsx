@@ -1,13 +1,11 @@
 import { observer } from "mobx-react-lite";
-import { Box, Heading, Button, ResponsiveContext } from "grommet";
-import { useRouter } from "next/router";
+import { Box, Heading } from "grommet";
 import { ApiMorph } from "../../data/interfaces";
 import { makeAutoObservable, runInAction } from "mobx";
 import { Card } from "../../components/Card";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { Para } from "../../components/Para";
-import { But } from "../../components/But";
-import { Footer } from "../../components/Main/Footer";
+import { Btn } from "../../components/Btn";
 
 class RandomDisp {
     morph: ApiMorph = {
@@ -56,38 +54,25 @@ class RandomDisp {
 const disp = new RandomDisp();
 
 export default observer(() => {
-    const context = useContext(ResponsiveContext);
-
     useEffect(() => {
         disp.random();
     }, []);
 
     return (
         <>
-            <Box
-                direction={context == "small" ? "column" : "row"}
-                flex="grow"
-                justify="center"
-                pad="small"
-                align="center"
-                gap="large"
-            >
+            <Box flex="grow" justify="center" pad="small" align="center" gap="large">
                 <Box align="center" width={{ max: "350px" }} flex="grow">
                     <Heading level="2">Zilmorphs</Heading>
                     <Para>
-                        Zilmorphs is a collection of 8,000 machine learning
-                        generated creatures on the Zilliqa blockchain.
+                        Zilmorphs is a collection of 8,000 machine learning generated creatures on the Zilliqa
+                        blockchain.
                     </Para>
                     <Para>
-                        Zilmorphs were created to celebrate the creation of the
-                        Zilliqa bridge and can only be bought with Zilliqa
-                        bridge assets.
+                        Zilmorphs were created to celebrate the creation of the Zilliqa bridge and can only be bought
+                        with Zilliqa bridge assets.
                     </Para>
                     <Box align="center" flex="grow">
-                        <But
-                            label={"Random morph"}
-                            onClick={() => disp.random()}
-                        />
+                        <Btn label={"Random morph"} onClick={() => disp.random()} />
                     </Box>
                 </Box>
 

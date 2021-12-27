@@ -1,14 +1,6 @@
 import { Button } from "grommet";
 
-export const But = ({
-    label,
-    onClick,
-    fontSize,
-}: {
-    label: string;
-    onClick: any;
-    fontSize?: string;
-}) => {
+export const Btn = ({ label, onClick, fontSize }: { label: string; onClick: any; fontSize?: string }) => {
     return (
         <Button
             label={label}
