@@ -94,11 +94,12 @@ Rewards could be seeds, seed pair, morphs, morph pairs? And always XP.
 # TODO
 
 -   Checkout responsiveness on all pages and make sure it looks good
--   Investigate spinner gas (_"improving the slot machine contract so claiming prizes takes constant gas cost"_)
 -   Check whats going on with the stuff at the bottom of the `Main` component
-
     -   `{notifi.visible` ...
     -   `{spinResult.visible` ...
+-   Investigate spinner gas (_"improving the slot machine contract so claiming prizes takes constant gas cost"_)
+
+## MB Tasks
 
 -   Create 'arcade' tab: a menu showing all of the available games to play
 -   Create 'events' tab: where we host attribute face off, auctions and raffles
@@ -106,9 +107,7 @@ Rewards could be seeds, seed pair, morphs, morph pairs? And always XP.
 -   Create 'gallery' tab: showcases all existing zilmorphs and their current state (alive, orphaned, generation, etc)
 -   Create 'leaderboards' tab: showcases different player's stats
 -   Create 'operator' tab: showcases player profile
+
+-   Make the 'play' tab display cards of all the games instead of going straight to morphsino
+
 -   Add loading animation between pages
-
-## Theming
-
--   https://stackoverflow.com/questions/38272509/grommet-ui-custom-color-schemes
--   https://developer.hpe.com/blog/dark-mode-theming-in-grommet-theme-color-customization/
