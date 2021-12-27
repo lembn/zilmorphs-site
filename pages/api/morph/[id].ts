@@ -17,8 +17,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         res.status(400).json({ message: "Allowed range is 1 to 8000" });
         return;
     }
-    // const image = `https://zilmorphs.com/morph/${id}.png`;
-    const image = `https://storage.googleapis.com/morphs/${id}.png`
+    const image = `https://storage.googleapis.com/morphs/${id}.png`;
     const zilmorphId = parseInt(id);
     const re: ARKCompatibleMetadata = {
         num: id,

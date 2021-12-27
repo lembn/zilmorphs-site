@@ -93,12 +93,16 @@ Rewards could be seeds, seed pair, morphs, morph pairs? And always XP.
 
 # TODO
 
--   Why does random morph have to be in useeffect in `index.tsx`
--   Investigate pages/api
--   Whats \_app and \_document
+-   Investigate spinner gas (_"improving the slot machine contract so claiming prizes takes constant gas cost"_)
+
+## Questions
+
+-   How were they morphs generated
 -   Why is press not in dapp/
 -   How is it a dapp
--   Investigate spinner gas (_"improving the slot machine contract so claiming prizes takes constant gas cost"_)
+-   What is ARKCompatibleMetadata
+-   What is the purpose of /api/getpng/\[id\].ts if all it does is redirect
+    -   Its also never accessed
 
 ## MB Tasks
 
