@@ -60,7 +60,7 @@ export default observer(() => {
 
     return (
         <>
-            <Box flex="grow" justify="center" pad="small" align="center" gap="large">
+            <Box direction="row" flex="grow" justify="center" pad="small" align="center" gap="large">
                 <Box align="center" width={{ max: "350px" }} flex="grow">
                     <Heading level="2">Zilmorphs</Heading>
                     <Para>
