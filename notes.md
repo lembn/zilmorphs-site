@@ -89,6 +89,14 @@ Rewards could be seeds, seed pair, morphs, morph pairs? And always XP.
 
 # Roadmap
 
+-   [x] Improve mobile support
+-   [x] Create menu hamburger
+-   [ ] Create new tabs
+-   [ ] Improve slot machine contract
+-   [ ] Add loading animation between pages
+-   [ ] Write new lore
+-   [ ] Add lore to roadmap
+
 ---
 
 # TODO
