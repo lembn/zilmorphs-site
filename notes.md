@@ -99,6 +99,11 @@ Zilmorphs can be bought at the market, either as new seeds or traded with other 
 
 ---
 
+What is `FungibleToken` that Matt made
+We'll need to make something that can trade NFTs
+We'll need to make a fungible token crypto currency for the in-game currency
+Are Zilmorphs contracts? Are there 8000 contracts?
+
 Contracts:
 - What are the actual mechanics of the contract battles?
 - What part of the site do players actually *do* the contracts
