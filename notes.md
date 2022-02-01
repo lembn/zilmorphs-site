@@ -1,6 +1,19 @@
 # Zilmorphs
 
-**Zilmorphs** are a digital warrior race, embeded into the Zilliqa blockchain to fight against a dark, evil force growing deep within the web-space. They have potential to be very powerful, but cannot fall into the wrong hands, so were spread into 8000 _seeds_, stored as NFTs in the blockchain. Just like any species of creatures, there are different bloodlines of Zilmorphs, all with different genetic traits making them strong in different ways. Collect them to challenge other players; raise an army in the web-space, or just to have as cool collectible items.
+**Zilmorphs** are a race of digital agents, embeded into the Zilliqa blockchain to fight digital battles within the web-space. They have potential to be very powerful, but cannot fall into the wrong hands, so were spread into 8000 *seeds* and stored as NFTs in the blockchain. Just like any species of creatures, there are different bloodlines of Zilmorphs, all with different genetic traits making them strong in different ways. You are the operator, your objective: accumilate zilmorphs to raise an army in the web-space, and challenge other players for *contracts* to win rewards and become the most powerful operator.
+
+## contracts
+Contracts are activities which operators partake in to win rewards. They have 4 ascending difficulties, with harder contracts reaping greater rewards. There are two contracts available for operators to take. The first is **shield contracts**. When a player receives a shield contract, they are tasked with defending an online arena against oncoming attackers for a given time period. For every shield contract, there is an associated *black hat* contract which, if taken, requires the player to attack the given server to receive the rewards. Operators who accept these contracts are the "attackers" that regular contract holders have to defend against. Because of this, shield contracts are inherintly easier than black hat contracts, since black hat contracts are only posted after a shield contract has been accepted, so it's possible that an operator takes a contract, but no other operators take the associated black hat contract, so the defending operator won't have to do any actual work.
+
+The contract difficulties are:
+- edge
+- cloud
+- cluster
+- monolith
+
+Edge arenas are the easiest to attack but the hardest to defend, and vice versa for monolith arenas. The reason for this is because for edge arenas, the attacker can invite other attackers to join, but the defender can invite no-one; for cloud arenas, the attacker can invite less and the defender can invite more and so on.
+
+The rewards of the contract are public, so the first attacker/defender can see eveything that they can win. When inviting operators, they choose which/how much of the rewards to offer to joining operators, to incentivise them to help. Rewards are scaled by difficulty. For example, a successful black hat contract on an edge arena will reward less experience points than a sucessful shield contract on an edge arena, and vice versa for monolith arenas. Contracts share rewards, so if the defender(s) succeeds, they take the rewards and the attacker(s) gets nothing and vice versa. The losing operator(s) may still be awarded some experience points, depending on their performance.
 
 ## binding and boosting
 
@@ -60,30 +73,37 @@ Zilmorphs can be bought at the market, either as new seeds or traded with other 
 
 ---
 
-The player is the "operator", players can change their name, there are leaderboards for different player stats, the player has an XP level with a prestige system every 20 levels. Each prestige level changes the players profile card to look cooler.
+What are the actual mechanics of the contract battles?
 
-Zilmorphs are not warriors, they're "digital agents" to enforce digital security. There is no evil force, only players. Other than the games, players compete for "contracts", which are PvP activities they do. Contracts are basically freelance cyber-security jobs with different difficulties: home, cloud, edge, cluster, monolith (different types of servers). Regular contracts have lower rewards but are easier. They involve using the Zilmorphs do defend the assigned server. The contract has a duration, the operator just has to make sure that the server isn't sucesfully attacked in the duration they're supposed to be looking after it. There are special black hat contracts, these involve using morphs to attack a defended server, it is much harder but has greater rewards. One of the reasons regular contracts are easier is because if noone takes the black hat contract against that server then the operator doesn't even have to do anything. The contracts are supposed to be the main part of the game, the games are just extra
-
-The arcade is the non-zilmorph way to interact with the universe. You need a decent army of morphs to take contracts but you can play arcade games with no morphs.
-
-Contract rewards are much higher than game rewards.
+The arcade is the non-zilmorph way to interact with the universe. You need a decent army of morphs to take contracts but you can play arcade games with no morphs. Contract rewards are much higher than arcaded rewards.
 
 Rewards could be seeds, seed pair, morphs, morph pairs? And always XP.
 
--   How do they compete for contracts
-    -   Highest XP
-    -   Buy in market
-    -   Auction in market
-    -   Campaign?
-        -   Pay to unlock each level?
 -   In game currency
     -   Name for in-game currency
-    -   Can you buy in-game currency with ZIL
-    -   Winning games can reward in game currency?
--   Cool name for the market
--   Do we want it to be possible to play the game without ever paying money: eg you play one of the non-morph games until you win two seeds/enough in game currency for to buy two seeds, then bind them to get a gen1 morph. I think this is ok cos you rllllly have to grind to keep getting seeds and getting them to the right level rather than just buying.
--   Read press page lore:
-    > "Zillqa bridge has echoed across the multiverse. The balance was disturbed! Two worlds colided and now 8000 zilmorphs have invaded our dimension! You can only get them with assets from the other worlds: #zWBTC, #zETH, #zUSDT. Zilmorphs have bridged into our world. One can aquire them only by bridging with the other worlds themselves #zWBTC, #zETH, #zUSDT. Zilmorphs come from an alternate reality, that is much more advanced then ours, they managed to entirely digitalize themselves and live on the #Zilliqa blockchain. Zilmorphs are so advanced in fact that in their world they have been created by machines! Machine learning has created zilmorphs! The portal is unstable! Zilmorphs are here for a limited time! The sale will end at a random time and the remaining zimorphs will be trapped in the other worlds forever!"
+    -   You can buy in-game currency with ZIL
+    -   Winning games can reward in game currency
+	- Anything that can be bought with ZIL can be bought with more in-game currency so ZIL is like gems in COC
+
+Arenas exist on web-space servers. After successfully completing a contract, players should have the ability to look around the filesystems of the servers hosting the arena they are attacking or defending. There will be storylines of powerful operators from previous genesises, their rosters they made and how they made them. These stories may contain some of these obscure or difficult binding techniques. The stories will be spread across multiple files that the players can find in filesystems. If we spread related stories to specific servers it may encourage players to target specific contracts, not even for the rewards, but for the stuff they might find.
+
+Operators can read these files from the filesystem, or take the files so they other operators can't have them. This will be a manual process so that players can forget and accidentally leave valuable files if they aren't careful. When a player takes a page, an alert is sent out. "The lost files of X have been recovered from a server in Y". Players can sell the pages at the market. This may seem useless since if someone's takes a picture of a page and puts it on the internet then the page no longer has any sale value. To fix this we will give the holder of the page the ability to lock and unlock the technique it describes. This means that even if people learn the technique they won't be able to use it. When the owner wants to use it they unlock, then lock when they're done. The catch is that locking and unlocking is global and sends out an alert when it is done, so when you unlock, anyone who knows the technique can use it. Players can sell "unlock this technique for 5 min" on the market.
+
+breaking news to show notifications
+
+PvE shield contracts if noone takes the black hat?
+
+Players have profiles/accounts
+- They can change their name
+- There are leaderboard for operator points
+- operators have XP with a prestige system every 20 levels
+- Each prestige level changes the players profile card to look cooler.
+- Have an hours played counter
+- Players have power ratings as X/Y where X is the combined power of each morph and Y is the players overall power rating. X should be the sum of the powers of the morphs before they have been influenced by buff and player perk boosts. This means that if you see a player with 500/4000, you don't know if the 3500 headroom is from player powers like direct magic abilities or from boosting the morph powers. This allows players to conceal their strengths abit more while allowing them to flex how powerful they are. Y is derived from the sum of X, plus all the other things that can make the player powerful, eg perks that boost stats of morphs, direct magic abilities, temporary buffs
+
+To make the grind more interesting, the binding system should be very intricate, encouraging players to learn it better, making them more immersed in the game world. we want players to carefully curate a roster, due to the benefits the game will give them for being smart. for example, maybe there is a bloodline A that will reduce the overall score if they share a roster with some different bloodline B, so players have to choose a morph from one - but not both of those bloodlines for their roster since having both would damage the lineup. if we make the properties of those bloodlines polar opposites (for example A does double healing and B does double damage, but A and B are the only bloodlines with these abilities), then we push players into making hard choices about which skillsets they want their roster to cover. This will also encourage players to look for a way around constraints like these and try to "outsmart" the in game systems. this type of behaviour is good since it makes players more invested in the game, so to encourage it we should leave obscure workarounds available in the game, so if anyone works hard enough to find it, they'll be rewarded
+
+introduce some wear or damage to the morph which increases the more it's used. this is 100% permanent and cannot be undone. It has little to no functional purpose, maybe morphs perform marginally better when barely used within the first 10% but at 100 it still works. Introduce some process in the game that can be used to permanently or temporarily decrease wear rate. This means morphs can now be rated on their condition (we can have mint condition morphs) and wear resistance.
 
 ---
 
@@ -101,11 +121,12 @@ Rewards could be seeds, seed pair, morphs, morph pairs? And always XP.
 
 # TODO
 
+-   Redo notes
 -   Investigate spinner gas (_"improving the slot machine contract so claiming prizes takes constant gas cost"_)
 
 ## Questions
 
--   How were they morphs generated
+-   How were the morphs generated
 -   Why is press not in dapp/
 -   How is it a dapp
 -   What is ARKCompatibleMetadata
@@ -116,10 +137,19 @@ Rewards could be seeds, seed pair, morphs, morph pairs? And always XP.
 
 -   Create 'arcade' tab: a menu showing all of the available games to play
 -   Create 'events' tab: where we host attribute face off, auctions and raffles
+	- Has a 'news feed' for annoucements and notifications
+	- Has an 'ongoing events' sections for ongoing events   
 -   Create 'market' tab: where players can buy items, algorithms and zilmorphs. Players can also sell items here too.
--   Create 'gallery' tab: showcases all existing zilmorphs and their current state (alive, orphaned, generation, etc)
--   Create 'leaderboards' tab: showcases different player's stats
+	-   Long grid view of everything on sale
+	-   It can be filtered and sorted by type
+	-   Contracts are posted here
+-   Create 'gallery' tab
+	-   Allow the player to view all their items/zilmorphs/contracts etc. It's just a long grid view of everything they own (looks similar to market).
+	-   They can filter and sort
+	-   They can organise into folders
+	-   Has a section to showcase all existing zilmorphs and their current state (alive, orphaned, generation, etc)
 -   Create 'operator' tab: showcases player profile
+	- It also has the leaderboard   
 
 -   Make the 'play' tab display cards of all the games instead of going straight to morphsino
 
