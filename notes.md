@@ -99,10 +99,30 @@ Zilmorphs can be bought at the market, either as new seeds or traded with other 
 
 ---
 
-What is `FungibleToken` that Matt made
-We'll need to make something that can trade NFTs
-We'll need to make a fungible token crypto currency for the in-game currency
-Are Zilmorphs contracts? Are there 8000 contracts?
+
+smart contracts:
+- The existing `FungibleToken` contract doesn't seem to be a part of Zilmorphs, it looks like it was just downloaded to generate an `abi` cos the contract is used for the zBridge stuff
+	- Do we want to retain the "you can only pay with zBridge assets" concept or are we just going to only accept ZIL.
+	- Maybe you can buy anything with ZIL or `bits` but ZBridge assets can only be used to buy `bits`
+- Matt told us to "improve the slot machine contract" but contract code is immutable so what did he mean?
+	- Can we edit smart contracts?
+	- Or did he mean re-deploy
+	- We can use whatever technique it is to add functionality to the `Zilmorphs` contract if we need to
+- What actually is "minting" in the `Zilmorphs` contract?
+	- It looks like it just associates a URL to an address in a `Map` on the contract, so all the data is stored at the URL?
+	- Everything looks like its hosted on firebase, which is centralised, so its not a dapp?
+	- How do we store state a Zilmorph (alive, generation, etc)
+- The `bits` contract will define a fungible token. We need to make sure that players can't trade these tokens off-game or they may be able to exploit arbitrage techniques to glitch more money for themselves
+	- Or do we want this to be a feature?
+- How are we going to implement in-game items?
+	- Will there be a token for each type of item?
+	- Are the tokens fungible or non-fungible?
+- We'll need the following smart contracts:
+	- `Zilmorphs`
+	- `SlotMachine`
+	- `bits`
+	- `market`
+	- Something for the in-game items
 
 Contracts:
 - What are the actual mechanics of the contract battles?
