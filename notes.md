@@ -101,18 +101,16 @@ Zilmorphs can be bought at the market, either as new seeds or traded with other 
 
 
 smart contracts:
-- The existing `FungibleToken` contract doesn't seem to be a part of Zilmorphs, it looks like it was just downloaded to generate an `abi` cos the contract is used for the zBridge stuff
-	- Do we want to retain the "you can only pay with zBridge assets" concept or are we just going to only accept ZIL.
-	- Maybe you can buy anything with ZIL or `bits` but ZBridge assets can only be used to buy `bits`
 - Matt told us to "improve the slot machine contract" but contract code is immutable so what did he mean?
 	- Can we edit smart contracts?
 	- Or did he mean re-deploy
-	- We can use whatever technique it is to add functionality to the `Zilmorphs` contract if we need to
-- What actually is "minting" in the `Zilmorphs` contract?
-	- It looks like it just associates a URL to an address in a `Map` on the contract, so all the data/logic is at the URL?
-	- Everything looks like its hosted on firebase, which is centralised, so its not a dapp?
-	- How do we store state a Zilmorph (alive, generation, etc)
-	- Is looks like the contract is ZRC-1, it needs to be updated to ZRC-6/7
+	- We can use whatever technique it is to upgrade the `Zilmorphs` contract to ZRC-6
+- The existing `FungibleToken` contract doesn't seem to be a part of Zilmorphs, it looks like it was just downloaded to generate an `abi` cos the contract is used for the zBridge stuff
+	- Do we want to retain the "you can only pay with zBridge assets" concept or are we just going to only accept ZIL.
+	- Maybe you can buy anything with ZIL or `bits` but ZBridge assets can only be used to buy `bits`
+- The Zilmorph contract is ZRC-1, does it need to be updated to ZRC-6?
+- Everything looks like its hosted on firebase, which is centralised, so its not a dapp?
+	- Should we use IPFS?
 - The `bits` and in-game items are represented as tokens given to players' wallets. We need to make sure that players can't trade these tokens off-game or they may be able to exploit arbitrage techniques to glitch more money for themselves
 	- Likewise for in-game items
 	- Do we want this to be a feature?
@@ -122,7 +120,8 @@ smart contracts:
 	- Game Contracts
 		- `SlotMachine` and other games
 	- `market` (Token Exchange/Item)
-		- In-game items will be non-fungible, we can have one contract to assign all the in-game items. The contract will implement code to mint URLs to player addresses, then we'll use some logic at the URL to identify what type of item the player has.
+		- In-game items will be NFTs, we can have one contract to assign all the in-game items. The contract will implement code to mint URLs to player addresses, then we'll use some logic at the URL to identify what type of item the player has.
+		- We can manipulate the NFT metadata to change the state of Zilmorphs and identify different items.
 		- When players use items and `bits`, they will be sent back to the `market` contract so the contract can give them to other players instead of always having to re-mint.
 
 Contracts:
