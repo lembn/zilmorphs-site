@@ -109,20 +109,21 @@ smart contracts:
 	- Or did he mean re-deploy
 	- We can use whatever technique it is to add functionality to the `Zilmorphs` contract if we need to
 - What actually is "minting" in the `Zilmorphs` contract?
-	- It looks like it just associates a URL to an address in a `Map` on the contract, so all the data is stored at the URL?
+	- It looks like it just associates a URL to an address in a `Map` on the contract, so all the data/logic is at the URL?
 	- Everything looks like its hosted on firebase, which is centralised, so its not a dapp?
 	- How do we store state a Zilmorph (alive, generation, etc)
-- The `bits` contract will define a fungible token. We need to make sure that players can't trade these tokens off-game or they may be able to exploit arbitrage techniques to glitch more money for themselves
-	- Or do we want this to be a feature?
-- How are we going to implement in-game items?
-	- Will there be a token for each type of item?
-	- Are the tokens fungible or non-fungible?
+	- Is looks like the contract is ZRC-1, it needs to be updated to ZRC-6/7
+- The `bits` and in-game items are represented as tokens given to players' wallets. We need to make sure that players can't trade these tokens off-game or they may be able to exploit arbitrage techniques to glitch more money for themselves
+	- Likewise for in-game items
+	- Do we want this to be a feature?
 - We'll need the following smart contracts:
-	- `Zilmorphs`
-	- `SlotMachine`
-	- `bits`
-	- `market`
-	- Something for the in-game items
+	- `Zilmorphs` (ZRC-6 NFT)
+	- `bits` (ZRC-2 Fungible Token)
+	- Game Contracts
+		- `SlotMachine` and other games
+	- `market` (Token Exchange/Item)
+		- In-game items will be non-fungible, we can have one contract to assign all the in-game items. The contract will implement code to mint URLs to player addresses, then we'll use some logic at the URL to identify what type of item the player has.
+		- When players use items and `bits`, they will be sent back to the `market` contract so the contract can give them to other players instead of always having to re-mint.
 
 Contracts:
 - What are the actual mechanics of the contract battles?
