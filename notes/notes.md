@@ -123,15 +123,54 @@ smart contracts:
 		- In-game items will be NFTs, we can have one contract to assign all the in-game items. The contract will implement code to mint URLs to player addresses, then we'll use some logic at the URL to identify what type of item the player has.
 		- We can manipulate the NFT metadata to change the state of Zilmorphs and identify different items.
 		- When players use items and `bits`, they will be sent back to the `market` contract so the contract can give them to other players instead of always having to re-mint.
+		- Anything can be traded for ZIL on the market
 
 Contracts:
-- What are the actual mechanics of the contract battles?
-- What part of the site do players actually *do* the contracts
-	- What does it look like
-- How are we gonna do the filesystem browsing thing
-- Can the stories be about *actual* in-game players from the last genesis
+When contracts are posted, the define a maximum number of zilmorphs that can be used. In general, as this number gets higher, the rewards imrpove. This is so that players with less morphs can take contracts that define low morph limits to prevent getting cheesed by players with more morphs.
 
-Figure out trait system once we know how contract battles actually work. Then we'll know what the traits should be
+Black hat contracts are posted first. When the attackers are "ready", the sheild contract is posted. Sheild contracts have attackers' details in them. Max number of teammates is 2. In the preperation phase, each operator on the team decides which morphs they want to send into the arena. Out of the total morphs sent, a formation is created on a grid. The attacker's preperation phase happens before the sheild contract is even posted, when a team finalises their formation, they are "ready".
+
+Next the morphs march from their side of the arena to the other side, from this point on morphs can attack each other, so ranged attacks will have effect. The defending team has the option to stop marching and hold at any points (even the start if they don't want to move at all).
+
+The travel phase ends when there are no more spaces between the front lines of both both teams. Morphs battle against the morph directly ahead of them unless their traits specify otherwise. When a morph is defeated, it's grid position becomes empty and the other team can push up into that space. When an empty grid position gets occupied, it gets taken by the team of the morph who occupied it. The winning team is whoever has total grid coverage, or the most coverage by the time limit. This means that if the defending team just decides to hold, they'll lost alot of coverage at the start.
+
+- How manual is the process
+	- Formation: completely manual
+		- Save formations?
+			- Save by morph
+			- Save by bloodline
+	- March: automatic (its governed by the "agression")
+	- Battle: semi-automatic
+		- Choose when to push into space ("aggression")
+		- Pictures of different scenarios, pick which ones to push or hold or random
+- How does a morph get "defeated"
+- Do we add champions?
+- Simplify the pages, they give:
+	- Operator perks
+	- Algorithms
+	- Morph buffs
+
+
+--- 
+- https://www.rangen.co.uk/world/speciesgen.php
+morphs have effects (animations)
+morphs have habitats:
+- backdrops
+	- colours
+	- generative art
+- scenes
+morphs accessories (like wings or special hands or actual physical accessories)
+
+all of these are interchangable/tradeable but keep track of the morph that generated them
+
+core vs seed
+morphs can animate at low chance
+- animate transform
+- animate mesh (very rare)
+users can submit textures and models
+final form generation:
+- https://youtu.be/MM462PzhC1I
+- https://youtu.be/u6utxGcKMZ0
 
 ---
 
