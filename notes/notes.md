@@ -137,7 +137,7 @@ final form generation:
 - https://youtu.be/MM462PzhC1I
 - https://youtu.be/u6utxGcKMZ0
 
-If we ever release a new series of morphs, we should give all the existing ones a "genesis" stamp to show that they are original morphs. This is becuase releasing a bunch of new morphs will decrease the value of the existing morphs, so users can flaunt the genesis stamps to show that they are special (which should help to make up for the lost value)
+If we ever release a new series of morphs, we should give all the existing ones a "genesis" stamp to show that they are original morphs. This is becuase releasing a bunch of new morphs will decrease the value of the existing morphs, so users can flaunt the genesis stamps to show that they are special (which should help to make up for the lost value).
 
 Zilmorphs were one of the first NFTs on Zilliqa, this should be reflected in the lore
 
