@@ -77,6 +77,7 @@ The market is a universe-wide area where players can trade items, algorithms and
 # TODO
 -   Redo notes
 -   Investigate spinner gas (*"improving the slot machine contract so claiming prizes takes constant gas cost"*)
+-   How can we intergrate with **metapolis**
 
 ## Questions
 -   How were the morphs generated
