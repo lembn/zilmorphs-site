@@ -1,8 +1,9 @@
 import { observer } from "mobx-react-lite";
 import { Box, Grid, Heading } from "grommet";
-import router from "next/router";
+
 import { GiCrossedSwords, GiCardRandom } from "react-icons/gi";
 import Typewriter from "typewriter-effect";
+import router from "next/router";
 
 export default observer(() => {
   // add responsiveness to the boxes that contain arcade options
@@ -45,10 +46,11 @@ export default observer(() => {
       {/* // boxes presenting the options of the arcade */}
       <Box
         gridArea="morphsino"
+        focusIndicator={false}
         border={{ color: "black", size: "3px", side: "all" }}
         onMouseOver={highlightBox}
         onMouseLeave={dehighlightBox}
-        onClick={() => router.push("/dapp/my")}
+        onClick={() => router.push("/dapp/play")}
       >
         <Heading alignSelf="center" margin={"medium"} size={"xsmall"}>
           Morphsino
@@ -59,10 +61,11 @@ export default observer(() => {
       </Box>
       <Box
         gridArea="battle"
+        focusIndicator={false}
         border={{ color: "black", size: "3px", side: "all" }}
         onMouseOver={highlightBox}
         onMouseLeave={dehighlightBox}
-        onClick={() => router.push("/dapp/my")}
+        onClick={() => router.push("/dapp/battle")}
       >
         <Heading alignSelf="center" margin={"medium"} size={"xsmall"}>
           Battle
