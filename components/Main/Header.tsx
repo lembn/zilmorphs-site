@@ -65,20 +65,20 @@ export const Header = observer(({ expand }: { expand: HeaderExpand }) => {
                         flex={bpSize == "small" ? "grow" : "shrink"}
                         style={styles}
                     >
-                        <Btn label={"home"} fontSize={"0.8em"} onClick={() => push("/dapp")} />
+                        <Btn label={"Home"} fontSize={"0.8em"} onClick={() => push("/dapp")} />
                         <Button
-                            label={"buy"}
+                            label={"Buy"}
                             style={{ fontWeight: "bold" }}
                             size="small"
                             onClick={() => push("/dapp/get")}
                         />
                         <Button
-                            label={"play"}
+                            label={"Arcade"}
                             style={{ fontWeight: "bold" }}
                             size="small"
-                            onClick={() => push("/dapp/play")}
+                            onClick={() => push("/dapp/arcade")}
                         />
-                        <Btn fontSize={"0.8em"} label={"view"} onClick={() => push("/dapp/my")} />
+                        <Btn fontSize={"0.8em"} label={"View"} onClick={() => push("/dapp/my")} />
                     </ABox>
                 )}
             </Spring>
@@ -92,7 +92,7 @@ export const Header = observer(({ expand }: { expand: HeaderExpand }) => {
             >
                 {(styles) => (
                     <AButton
-                        label={walletManager.connected ? "connected" : "connect zilpay"}
+                        label={walletManager.connected ? "connected" : "connect Zilpay"}
                         size="small"
                         plain
                         style={{
