@@ -1,9 +1,9 @@
 import { observer } from "mobx-react-lite";
-import { Box, Grid, Heading } from "grommet";
-
+import { Box, Grid, Heading, ResponsiveContext } from "grommet";
 import { GiCrossedSwords, GiCardRandom } from "react-icons/gi";
 import Typewriter from "typewriter-effect";
 import router from "next/router";
+import React from "react";
 
 export default observer(() => {
   // add responsiveness to the boxes that contain arcade options
@@ -14,20 +14,30 @@ export default observer(() => {
   function dehighlightBox(e) {
     e.target.style.borderWidth = "3px";
   }
+  // track the size of the window in a variable for resizing components
+  const context = React.useContext(ResponsiveContext);
 
   return (
     <Grid
       alignSelf="center"
       // each item in the array is the size for one specific row/column
-      rows={["xsmall", "small"]}
-      columns={["medium", "medium"]}
+      rows={context === "small" ? ["xsmall", "small", "small"] : ["xsmall", "small"]}
+      columns={context === "small" ? ["small", "small"] : ["medium", "medium"]}
       gap="medium"
-      // coordinates are stored as [column coord, row coord]
-      areas={[
-        { name: "typewriter", start: [0, 0], end: [1, 0] },
-        { name: "morphsino", start: [0, 1], end: [0, 1] },
-        { name: "battle", start: [1, 1], end: [1, 1] },
-      ]}
+      // coordinates are stored as [column coord, row coord], the column coordinates change depending on screen size
+      areas={
+        context === "small"
+          ? [
+              { name: "typewriter", start: [0, 0], end: [1, 0] },
+              { name: "morphsino", start: [0, 1], end: [0, 1] },
+              { name: "battle", start: [0, 2], end: [0, 2] },
+            ]
+          : [
+              { name: "typewriter", start: [0, 0], end: [1, 0] },
+              { name: "morphsino", start: [0, 1], end: [0, 1] },
+              { name: "battle", start: [1, 1], end: [1, 1] },
+            ]
+      }
     >
       <Box gridArea="typewriter">
         {/* //type writer effect for the title of the page */}
@@ -45,6 +55,7 @@ export default observer(() => {
       </Box>
       {/* // boxes presenting the options of the arcade */}
       <Box
+        margin={context == "small" ? { left: "100px", right: "-100px" } : "none"}
         gridArea="morphsino"
         focusIndicator={false}
         border={{ color: "black", size: "3px", side: "all" }}
@@ -60,6 +71,7 @@ export default observer(() => {
         </Heading>
       </Box>
       <Box
+        margin={context == "small" ? { left: "100px", right: "-100px" } : "none"}
         gridArea="battle"
         focusIndicator={false}
         border={{ color: "black", size: "3px", side: "all" }}
