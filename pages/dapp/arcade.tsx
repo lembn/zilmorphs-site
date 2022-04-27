@@ -1,11 +1,10 @@
-import { observer } from "mobx-react-lite";
 import { Box, Grid, Heading, ResponsiveContext } from "grommet";
 import { GiCrossedSwords, GiCardRandom } from "react-icons/gi";
 import Typewriter from "typewriter-effect";
 import router from "next/router";
 import React, { useContext } from "react";
 
-export default observer(() => {
+export default function arcade() {
   const bpSize = useContext(ResponsiveContext);
 
   function Game({ name, inner }: { name: string; inner: React.ReactNode }) {
@@ -66,4 +65,4 @@ export default observer(() => {
       </Grid>
     </>
   );
-});
+}
