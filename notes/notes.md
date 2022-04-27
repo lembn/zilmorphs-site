@@ -40,7 +40,6 @@ At this stage, if a zilmorph is ready to assimilate, it has a seed and a core, s
 The assimilation consists of:
 - Some central object, this could be anything from a bike to a coin to some humaniod creature.
 - Potentially a habitat, this could be a backdrop or in rare cases, in entire 3D scene. The backdrops are procedually generated at the time of assimilaition, so could be a simple colour or if even some generative artwork!
-- In some cases, the central object of the assimilation will have accessories like wings or special parts or even actual physical accessories like headphones.
 - On other rare occasions, the morph may be animated, to rotate its central object as it floats in or even animate the meshes within the models of the assimilation.
 - Finally, morphs are assigned a "scale". This is a number from 0 (exclusive) to 5 (inclusive) which represents the "size" of the assimilated morph. An assimilation of scale is treated as having a "regular" and is most common among assimilations.
 
@@ -108,45 +107,6 @@ The market is a universe-wide area where players can trade items, algorithms and
 - Create 'catalog' tab: showcases different assimilation parts
 -   Make the 'play' tab display cards of all the arcade games instead of going straight to morphsino
 -   Add loading animation between pages
-
----
-
-# Implementation
-## assimilation
-Species - https://www.rangen.co.uk/world/speciesgen.php
-morphs have effects (animations)
-- https://youtu.be/uIthYMgWM0Q
-- https://youtu.be/fHcuDamtc98
-- https://youtu.be/dblHLxyE7BU
-- https://youtu.be/no1zkwhwAHs
-- https://youtu.be/Fg5TwO4Z_40
-- https://youtu.be/8pD9iNFBenI
-- https://youtu.be/b_uyskgwsiw
-- https://youtu.be/P3TBxjPGfzs
-- https://youtu.be/xKiv6dKupoE
-- https://youtu.be/35bbyAJodEQ
-- https://youtu.be/QnpOBe8X--M
-
-textures
-models
-- base models
-- accessory models
-materials
-all can be submitted by user
-
-final form generation:
-- https://youtu.be/MM462PzhC1I
-- https://youtu.be/u6utxGcKMZ0
-
-If we ever release a new series of morphs, we should give all the existing ones a "genesis" stamp to show that they are original morphs. This is becuase releasing a bunch of new morphs will decrease the value of the existing morphs, so users can flaunt the genesis stamps to show that they are special (which should help to make up for the lost value).
-
-Zilmorphs were one of the first NFTs on Zilliqa, this should be reflected in the lore
-
-#### technique 1 - exhaustive pregeneration
-Pregenerate every single assimilation, as users submit models, textures, etc they get added on to the exisitng catalog. This is so that the catalog represents every single possible assimilation. This means that users can browse the catalog to see what they could potentially get. This would mean that when a morph requests assimilation, the genome would just be a number which would map to the index of some assimilation in the catalog. Final form developments would attempt to change this number so that it matches one with desired traits. For example, if all animated traits are even, final form developments may attempt to make the genome number stay even
-
-#### technique 2 - dynamic generation
-The assimilation generator is parametric, so in this case different parts of the genome would map to different paramaters of the algorithm. Final form developments would tune these specific parts of the genome to change the parameters that are passed to the generator. We will store each genome as it is submitted. If a submitted genome is identical to an exisitng genome, the submitted genome gets one of it's paramaters adjusted to make it unique (it should then be checked again to make sure it hasnt been made identical to anything else). Final form developments can also define the behaviour of the genome under adjustment (which paramaters are allowed to change, magnitude and direction). When generation completes, we can assign a rarity number to the assimilation which is simply the probability of the parts that were chosen being chosen.
 
 ---
 # Old Notes
